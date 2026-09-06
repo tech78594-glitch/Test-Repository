@@ -1,0 +1,21 @@
+---
+export interface Props {
+  heading: string;
+  body: string;
+  ctaLabel: string;
+  ctaHref: string;
+}
+const { heading, body, ctaLabel, ctaHref } = Astro.props;
+---
+
+<div class="cta-wrap">
+  <div class="cta-band reveal">
+    <div class="cta-inner">
+      <div class="cta-copy">
+        <h2>{heading}</h2>
+        <p>{body}</p>
+      </div>
+      <a href={ctaHref} class="btn btn-primary">{ctaLabel} &rarr;</a>
+    </div>
+  </div>
+</div>

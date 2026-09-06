@@ -1,0 +1,79 @@
+---
+interface FaqEntry {
+  id: string;
+  question: string;
+  answer: string;
+}
+
+const entries: FaqEntry[] = [
+  {
+    id: 'faq1',
+    question: 'What happens in the first discovery call?',
+    answer:
+      "The first call is a focused, no-obligation conversation. We learn about your goals, current challenges, and where performance is falling short then outline whether and how we can help. It typically leads to a paid assessment or strategy session if there's a strong fit.",
+  },
+  {
+    id: 'faq2',
+    question: 'What size and type of business do you work with?',
+    answer:
+      'We work with small businesses, startups, e-commerce brands, and established firms typically those ready to scale, restructure, or stabilise. Our frameworks adapt to your stage, so engagements range from a single project to ongoing advisory.',
+  },
+  {
+    id: 'faq3',
+    question: 'How quickly will we see results?',
+    answer:
+      'Some improvements such as cost savings, process fixes, quick wins surface within the first weeks. <br>Strategic outcomes such as revenue growth or market expansion typically build over one to two quarters. <br>Every engagement is measured against clear metrics agreed up front.',
+  },
+  {
+    id: 'faq4',
+    question: 'Do you offer ongoing advisory or only one-time projects?',
+    answer:
+      'Both. <br>Many clients begin with a defined consulting project, then move to a monthly advisory retainer or a fractional executive arrangement. Ongoing support gives you a strategic partner who stays close to the business as it evolves.',
+  },
+  {
+    id: 'faq5',
+    question: 'How are your fees structured?',
+    answer:
+      'We offer fixed-scope project fees, monthly advisory retainers, and where appropriate performance-based engagements tied to agreed outcomes. After the discovery call we recommend the structure that best fits your goals and budget. There are no hidden costs.',
+  },
+  {
+    id: 'faq6',
+    question: 'How are engagements measured and reported?',
+    answer:
+      "Every engagement starts with defined success metrics revenue, cost, efficiency, or team performance. We report against them throughout, so you always know what's working and what the work is worth.",
+  },
+  {
+    id: 'faq7',
+    question: 'Do you only advise, or can you actually build the digital, data and AI work too?',
+    answer:
+      'We build. Our Digital Product, Data &amp; AI service sits alongside our strategy work rather than replacing it, so recommendations turn into working data platforms, dashboards, applied-AI tools, and digital products not just a roadmap someone else has to implement.',
+  },
+];
+---
+
+<section class="faq" id="faq" aria-label="Frequently asked questions">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Questions? Answers.</span>
+      <h2>Frequently asked <span class="grad-text">questions</span></h2>
+      <p>The things prospective clients ask us most.</p>
+    </div>
+    <div class="faq-list reveal">
+      {entries.map((entry) => (
+        <div class="faq-item">
+          <button class="faq-q" id={`${entry.id}q`} aria-expanded="false" aria-controls={`${entry.id}a`}>
+            {entry.question}
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a" id={`${entry.id}a`} role="region" aria-labelledby={`${entry.id}q`}>
+            <div class="faq-a-inner" set:html={entry.answer} />
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq { background: var(--bg); }
+</style>

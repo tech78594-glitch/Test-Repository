@@ -1,0 +1,47 @@
+---
+const items = [
+  { n: '01', title: 'Outcome-Focused', body: 'Measured by revenue lifted, costs reduced, and efficiency gained not slides delivered.' },
+  { n: '02', title: 'Senior-Led', body: 'You work directly with experienced consultants never handed off to junior teams.' },
+  { n: '03', title: 'Proven Frameworks', body: 'Repeatable playbooks refined across industries and built to scale with your business.' },
+  { n: '04', title: 'Long-Term Partnership', body: "From project work to fractional leadership and digital delivery, we're built for the long game." },
+];
+---
+
+<section class="why" aria-label="Why choose us">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why THE DISTINCT 5</span>
+      <h2>Operators, builders &amp; partners</h2>
+      <p>We're not just advisors we're invested in your outcome.</p>
+    </div>
+    <div class="why-grid stagger">
+      {items.map((item) => (
+        <div class="why-card reveal">
+          <div class="why-num">{item.n}</div>
+          <h4>{item.title}</h4>
+          <p>{item.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why { background: var(--white); }
+  .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); }
+  .why-card { padding: 30px 26px; border-right: 1px solid var(--line); }
+  .why-card:last-child { border-right: none; }
+  .why-num { font-family: var(--font-mono); font-size: 20px; color: var(--line-strong); font-weight: 500; margin-bottom: 16px; }
+  .why-card h4 { font-family: var(--font-head); font-weight: 700; font-size: 16px; margin-bottom: 10px; color: var(--navy); }
+  .why-card p { color: var(--ink-soft); font-size: 13.5px; }
+
+  @media (max-width: 980px) {
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
+    .why-card { border-bottom: 1px solid var(--line); }
+    .why-card:nth-child(2n) { border-right: none; }
+  }
+  @media (max-width: 680px) {
+    .why-grid { grid-template-columns: 1fr; }
+    .why-card { border-right: none; }
+  }
+</style>

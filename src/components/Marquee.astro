@@ -1,0 +1,33 @@
+---
+const items = [
+  'Small Business', 'Startups', 'E-Commerce',
+  'Financial Turnaround', 'Operations Efficiency', 'Professional Services',
+];
+---
+
+<div class="capability-strip">
+  <div class="wrap capability-inner">
+    <span class="cs-label">Who we work with</span>
+    <div class="cs-items">
+      {items.map((item, i) => (
+        <>
+          <span>{item}</span>
+          {i < items.length - 1 && <span class="cs-sep" aria-hidden="true">/</span>}
+        </>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .capability-strip { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .capability-inner {
+    padding: 20px 5%; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .cs-label {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--ink-soft); flex-shrink: 0;
+  }
+  .cs-items { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-family: var(--font-head); font-size: 13.5px; color: var(--navy); font-weight: 500; }
+  .cs-sep { color: var(--line-strong); }
+</style>

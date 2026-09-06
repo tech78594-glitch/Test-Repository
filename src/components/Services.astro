@@ -1,0 +1,148 @@
+---
+interface FeatureService {
+  num: string;
+  tag: string;
+  title: string;
+  description: string;
+  features: string[];
+  image: string;
+}
+
+interface RowService {
+  num: string;
+  title: string;
+  description: string;
+  features: string[];
+}
+
+const featureServices: FeatureService[] = [
+  {
+    num: '01',
+    tag: 'Strategy & Operations',
+    title: 'Business Strategy & Operations Optimisation',
+    description:
+      "Growth planning and operational excellence, run from the same plan — so the strategy you set is the strategy your business can actually deliver.",
+    features: [
+      'Growth & market-entry roadmaps, competitive positioning',
+      'Process mapping, efficiency programmes & waste reduction',
+      'Quarterly execution planning & performance tracking',
+    ],
+    image: '/images/img-strategy-ops.jpg',
+  },
+  {
+    num: '02',
+    tag: 'Digital, Data & AI',
+    title: 'Digital Product, Data & Artificial Intelligence Development',
+    description:
+      'Product, data and AI capability built by people who understand the business behind it — turned into tools that save time and create real advantage.',
+    features: [
+      'Digital product design, build & delivery',
+      'Data platforms, pipelines & reporting (BI/analytics)',
+      'Applied AI — automation, insight & decision support',
+    ],
+    image: '/images/img-digital-ai.jpg',
+  },
+];
+
+const rowServices: RowService[] = [
+  {
+    num: '03',
+    title: 'Financial Advisory & Marketing and Sales',
+    description:
+      'Financial discipline and commercial growth run from one plan — protecting margin while building the pipeline that funds it.',
+    features: ['Cost control, cash-flow & turnaround strategy', 'Pipeline & demand generation, sales process design', 'Retention & recurring revenue'],
+  },
+  {
+    num: '04',
+    title: 'Leadership Development & Fractional Executive',
+    description:
+      'Capable, accountable leadership built from within — backed by senior fractional CFO/COO support when you need it most.',
+    features: ['Org structure, executive coaching & culture design', 'Fractional CFO & COO leadership', 'Flexible, scalable engagement'],
+  },
+  {
+    num: '05',
+    title: 'Branding',
+    description: 'Identity and visual strategy that gives your business better visibility and lasting market presence.',
+    features: ['Brand identity & positioning', 'Visual language & guidelines', 'Market visibility strategy'],
+  },
+  {
+    num: '06',
+    title: 'Business Development',
+    description: 'New product introduction strategies and partnership frameworks that open fresh revenue channels.',
+    features: ['New product go-to-market', 'Partnership & channel development', 'Revenue diversification'],
+  },
+];
+---
+
+<section class="services" id="services" aria-label="Our services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Our Services</span>
+      <h2>Engineered around your business</h2>
+      <p>Six connected capabilities, one advisory team — tailored consultancy and ongoing support, each built for measurable impact.</p>
+    </div>
+
+    <div class="feature-grid stagger">
+      {featureServices.map((service) => (
+        <article class="service-feature reveal">
+          <div class="sf-media"><img src={service.image} alt="" loading="lazy" /></div>
+          <div class="sf-body">
+            <span class="sf-num">{service.num} &middot; {service.tag}</span>
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+            <ul class="feat">
+              {service.features.map((f) => <li>{f}</li>)}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="service-rows">
+      {rowServices.map((service) => (
+        <article class="service-row reveal">
+          <div class="row-num">{service.num}</div>
+          <div class="row-main">
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+          </div>
+          <ul class="feat row-feat">
+            {service.features.map((f) => <li>{f}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services { background: var(--white); }
+  .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 0; border: 1px solid var(--line); }
+  .service-feature { display: flex; flex-direction: column; border-right: 1px solid var(--line); }
+  .service-feature:last-child { border-right: none; }
+  .sf-media { aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--line); }
+  .sf-media img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(15%) contrast(1.05); }
+  .sf-body { padding: 32px; flex: 1; display: flex; flex-direction: column; }
+  .sf-num {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--steel); display: block; margin-bottom: 12px;
+  }
+  .sf-body h3 { font-family: var(--font-head); font-weight: 700; font-size: 19px; margin-bottom: 10px; color: var(--navy); }
+  .sf-body p { color: var(--ink-soft); font-size: 14px; margin-bottom: 16px; }
+
+  .service-rows { border: 1px solid var(--line); border-top: none; }
+  .service-row {
+    display: grid; grid-template-columns: 70px 1.1fr 1fr; gap: 32px;
+    padding: 30px 32px; border-top: 1px solid var(--line); align-items: start;
+  }
+  .row-num { font-family: var(--font-display); font-weight: 800; font-size: 22px; color: var(--line-strong); }
+  .row-main h3 { font-family: var(--font-head); font-weight: 700; font-size: 17px; margin-bottom: 8px; color: var(--navy); }
+  .row-main p { color: var(--ink-soft); font-size: 13.5px; }
+  .row-feat { align-self: center; }
+
+  @media (max-width: 980px) {
+    .feature-grid { grid-template-columns: 1fr; }
+    .service-feature { border-right: none; border-bottom: 1px solid var(--line); }
+    .service-row { grid-template-columns: 1fr; gap: 12px; }
+  }
+</style>

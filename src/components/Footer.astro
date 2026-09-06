@@ -1,0 +1,54 @@
+---
+export interface Props {
+  variant?: 'home' | 'insight';
+}
+const { variant = 'home' } = Astro.props;
+---
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="logo"><span class="mark" aria-hidden="true">5</span> THE DISTINCT 5</div>
+      <p class="f-about">
+        Business consultancy and advisory services combining strategy, finance, marketing, leadership
+        and technology to build scalable, sustainable companies.
+      </p>
+    </div>
+    <nav aria-label="Explore">
+      <h5>Explore</h5>
+      <ul>
+        <li><a href="/index.html#about">About</a></li>
+        <li><a href="/index.html#services">Services</a></li>
+        <li><a href="/index.html#process">Process</a></li>
+        <li><a href="/index.html#faq">FAQ</a></li>
+        <li><a href="/ai-in-b2b.html">AI in B2B</a></li>
+      </ul>
+    </nav>
+    {variant === 'home' ? (
+      <nav aria-label="Services">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="/index.html#services">Business Strategy &amp; Operations</a></li>
+          <li><a href="/index.html#services">Digital Product, Data &amp; AI</a></li>
+          <li><a href="/index.html#services">Financial Advisory &amp; Marketing</a></li>
+          <li><a href="/index.html#services">Leadership &amp; Fractional Executive</a></li>
+          <li><a href="/index.html#contact">Branding &amp; Business Development</a></li>
+        </ul>
+      </nav>
+    ) : (
+      <nav aria-label="This guide">
+        <h5>This Guide</h5>
+        <ul>
+          <li><a href="#why-ai">Why It Matters</a></li>
+          <li><a href="#usecases">Use Cases</a></li>
+          <li><a href="#framework">Framework</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+    )}
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 THE DISTINCT 5 Ltd. All rights reserved.</span>
+    <span>Clarity &middot; Strategy &middot; Measurable Growth</span>
+  </div>
+</footer>

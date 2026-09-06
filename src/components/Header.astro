@@ -1,0 +1,47 @@
+---
+export interface Props {
+  activeNav?: 'ai-in-b2b' | null;
+}
+const { activeNav = null } = Astro.props;
+
+const links = [
+  { href: '/index.html#about', label: 'About' },
+  { href: '/index.html#services', label: 'Services' },
+  { href: '/index.html#process', label: 'Process' },
+  { href: '/index.html#insights', label: 'Insights' },
+  { href: '/ai-in-b2b.html', label: 'AI in B2B', key: 'ai-in-b2b' },
+  { href: '/index.html#faq', label: 'FAQ' },
+  { href: '/index.html#contact', label: 'Contact' },
+];
+---
+
+<header id="header">
+  <a href="/index.html" class="logo" aria-label="THE DISTINCT 5 — home">
+    <span class="mark" aria-hidden="true">5</span> THE DISTINCT 5
+  </a>
+  <nav aria-label="Primary">
+    <ul>
+      {links.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class={link.key === activeNav ? 'active' : ''}
+            aria-current={link.key === activeNav ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+  <a href="/index.html#contact" class="btn btn-primary">Book a Call</a>
+  <button
+    class="nav-toggle"
+    id="navToggle"
+    aria-label="Open navigation menu"
+    aria-expanded="false"
+    aria-controls="mobileMenu"
+  >
+    <span></span><span></span><span></span>
+  </button>
+</header>

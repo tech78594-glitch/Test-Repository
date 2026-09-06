@@ -1,0 +1,87 @@
+---
+---
+
+<section class="contact" id="contact" aria-label="Contact us">
+  <div class="wrap">
+    <div class="contact-head reveal">
+      <span class="eyebrow">Get in Touch</span>
+      <h3>Let's start the conversation.</h3>
+    </div>
+    <div class="ci-grid reveal">
+      <div class="ci-card">
+        <div class="lbl">Email</div>
+        <!-- Email painted to canvas by contactProtect.ts — zero text node in DOM -->
+        <canvas id="ci-email" class="ci-canvas" role="img" height="20" aria-label="Contact email"></canvas>
+      </div>
+
+      <div class="ci-card">
+        <div class="lbl">Phone</div>
+        <!-- Phone assembled by CSS content:attr() via contactProtect.ts — not in DOM text tree -->
+        <div class="val ci-val-protected" id="ci-phone" aria-label="Contact phone"></div>
+      </div>
+
+      <div class="ci-card">
+        <div class="lbl">Office</div>
+        <div class="val" id="ci-location">&mdash;</div>
+      </div>
+
+      <div class="ci-card">
+        <div class="lbl">Hours</div>
+        <div class="val" id="ci-hours">&mdash;</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initContactProtect } from '../scripts/contactProtect';
+  initContactProtect();
+</script>
+
+<style>
+  .contact { background: var(--white); }
+  .contact-head { margin-bottom: 40px; }
+  .contact-head h3 {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: clamp(22px, 2.8vw, 30px); letter-spacing: -0.4px;
+    margin-top: 14px; color: var(--navy);
+  }
+  .ci-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--line);
+  }
+  .ci-card {
+    padding: 28px 24px; border-right: 1px solid var(--line);
+  }
+  .ci-card:last-child { border-right: none; }
+  .ci-card .lbl {
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px;
+  }
+  .ci-card .val { font-family: var(--font-head); font-weight: 600; font-size: 14px; color: var(--navy); }
+
+  /* Email → painted onto <canvas>: no text node, not in textContent/innerText,
+     not selectable, invisible to text-based scrapers. */
+  .ci-canvas { display: block; max-width: 100%; height: 20px; }
+
+  /* Phone → assembled by CSS ::before from split data-* attrs.
+     content: attr() is NOT part of the DOM text tree — textContent returns ''.
+     user-select:none prevents copy; pointer-events:none blocks drag-select. */
+  .ci-val-protected {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    font-family: var(--font-head); font-weight: 600; font-size: 14px; color: var(--navy);
+  }
+  .ci-val-protected::before {
+    content: attr(data-p1) attr(data-p2);
+  }
+
+  @media (max-width: 680px) {
+    .ci-grid { grid-template-columns: 1fr 1fr; }
+    .ci-card { border-bottom: 1px solid var(--line); }
+    .ci-card:nth-child(2n) { border-right: none; }
+  }
+</style>

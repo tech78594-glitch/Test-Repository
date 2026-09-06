@@ -1,0 +1,23 @@
+---
+export interface Props {
+  activeNav?: 'ai-in-b2b' | null;
+}
+const { activeNav = null } = Astro.props;
+
+const links = [
+  { href: '/index.html#about', label: 'About' },
+  { href: '/index.html#services', label: 'Services' },
+  { href: '/index.html#process', label: 'Process' },
+  { href: '/index.html#insights', label: 'Insights' },
+  { href: '/ai-in-b2b.html', label: 'AI in B2B', key: 'ai-in-b2b' },
+  { href: '/index.html#faq', label: 'FAQ' },
+  { href: '/index.html#contact', label: 'Contact' },
+];
+---
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <button class="close" id="menuClose" aria-label="Close menu">&times;</button>
+  {links.map((link) => (
+    <a href={link.href} class={link.key === activeNav ? 'active' : ''}>{link.label}</a>
+  ))}
+</div>

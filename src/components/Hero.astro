@@ -1,0 +1,80 @@
+---
+---
+
+<section class="hero" aria-label="Introduction">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Business Consultancy &amp; Advisory</span>
+      <h1>Clarity. Strategy.<br />Measurable Growth.</h1>
+      <p>
+        THE DISTINCT 5 Ltd partners with ambitious businesses to solve complex problems, sharpen
+        strategy, and unlock sustainable performance — across the boardroom, the balance sheet,
+        and the build.
+      </p>
+      <div class="hero-cta">
+        <a href="#services" class="btn btn-primary">Explore Services &rarr;</a>
+        <a href="#contact" class="btn btn-ghost">Schedule Consultation</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="hero-photo">
+        <img
+          src="/images/img-hero-consultant.jpg"
+          alt="A THE DISTINCT 5 consultant reviewing strategy in a client's office"
+          loading="eager"
+          width="900"
+          height="1000"
+        />
+      </div>
+      <dl class="hero-facts">
+        <div>
+          <dt>Engagement model</dt>
+          <dd>Senior-led, outcome-based advisory</dd>
+        </div>
+        <div>
+          <dt>Coverage</dt>
+          <dd>Strategy &middot; Finance &middot; Marketing &middot; Leadership &middot; Digital &amp; AI</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { padding-top: 178px; border-top: none; }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 0;
+    border: 1px solid var(--line);
+  }
+  .hero-copy {
+    padding: 56px 48px; border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .hero-copy .eyebrow { margin-bottom: 22px; }
+  .hero h1 {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: clamp(32px, 4.4vw, 52px); line-height: 1.1;
+    letter-spacing: -0.6px; margin-bottom: 22px; color: var(--navy);
+  }
+  .hero p { font-size: 16.5px; color: var(--ink-soft); max-width: 480px; margin-bottom: 30px; }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .hero-panel { display: flex; flex-direction: column; }
+  .hero-photo { aspect-ratio: 4 / 3; overflow: hidden; border-bottom: 1px solid var(--line); }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(8%) contrast(1.02); }
+  .hero-facts { padding: 30px 36px; display: grid; gap: 22px; flex: 1; background: var(--paper); }
+  .hero-facts dt {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--steel); margin-bottom: 6px;
+  }
+  .hero-facts dd { font-family: var(--font-head); font-size: 14px; color: var(--navy); font-weight: 500; }
+
+  @media (max-width: 980px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-copy { border-right: none; border-bottom: 1px solid var(--line); }
+  }
+  @media (max-width: 680px) {
+    .hero { padding-top: 96px; }
+    .hero-copy { padding: 40px 24px; }
+  }
+</style>

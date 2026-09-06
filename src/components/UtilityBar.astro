@@ -1,0 +1,11 @@
+---
+export interface Props {
+  contactHref?: string;
+}
+const { contactHref = '#contact' } = Astro.props;
+---
+
+<div class="utility-bar" aria-hidden="true">
+  <span>UK Business Consultancy &amp; Advisory &middot; London</span>
+  <span>Mon &ndash; Fri, 9:00 &ndash; 17:00 &nbsp;&middot;&nbsp; <a href={contactHref}>Book a Call &rarr;</a></span>
+</div>
