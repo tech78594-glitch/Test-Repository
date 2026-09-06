@@ -1,0 +1,87 @@
+---
+import '../styles/global.css';
+import UtilityBar from '../components/UtilityBar.astro';
+import Header from '../components/Header.astro';
+import MobileMenu from '../components/MobileMenu.astro';
+import Footer from '../components/Footer.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  /** Canonical path, e.g. "/" or "/ai-in-b2b.html" */
+  path: string;
+  /** Extra <script type="application/ld+json"> body, already JSON.stringify'd */
+  jsonLd?: string;
+  ogType?: 'website' | 'article';
+  activeNav?: 'ai-in-b2b' | null;
+  footerVariant?: 'home' | 'insight';
+}
+
+const {
+  title,
+  description,
+  path,
+  jsonLd,
+  ogType = 'website',
+  activeNav = null,
+  footerVariant = 'home',
+} = Astro.props;
+
+const canonicalUrl = new URL(path, Astro.site).toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="icon" href="/images/company_logo.png" type="image/x-icon" />
+    <meta name="description" content={description} />
+
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="THE DISTINCT 5 Ltd" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {jsonLd && <script type="application/ld+json" set:html={jsonLd} is:inline />}
+
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <div class="progress" id="progress" aria-hidden="true"></div>
+
+    <UtilityBar contactHref={activeNav === 'ai-in-b2b' ? '/index.html#contact' : '#contact'} />
+    <Header activeNav={activeNav} />
+    <MobileMenu activeNav={activeNav} />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer variant={footerVariant} />
+
+    <script>
+      import { initNav } from '../scripts/nav';
+      import { initReveal } from '../scripts/reveal';
+      import { initFaq } from '../scripts/faq';
+      import { initTilt } from '../scripts/tilt';
+
+      initNav();
+      initReveal();
+      initFaq();
+      initTilt();
+    </script>
+  </body>
+</html>
