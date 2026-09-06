@@ -1,0 +1,74 @@
+---
+const facts = [
+  { n: '01', title: 'One senior team', body: 'Across strategy, finance, people and technology — not scattered across separate specialists.' },
+  { n: '02', title: 'Built for every stage', body: 'Frameworks that adapt for startups, e-commerce brands and established firms alike.' },
+  { n: '03', title: 'Hands-on delivery', body: "Implementation alongside your team — not just recommendations left on a slide." },
+];
+---
+
+<section class="about" id="about" aria-label="About us">
+  <div class="wrap about-grid">
+    <div class="about-copy reveal">
+      <span class="eyebrow">Who We Are</span>
+      <h3>Every discipline your business needs. One outcome: growth that lasts.</h3>
+      <p class="lead">
+        We combine deep operational experience with proven frameworks across strategy, finance,
+        marketing, leadership and technology — brought together under one advisory team instead of
+        scattered across separate specialists.
+      </p>
+      <p class="lead">
+        Whether you're scaling a startup, restructuring a mature business, or stepping into a new
+        market, we bring the clarity, structure and strategy you need to move forward with confidence.
+      </p>
+    </div>
+    <div class="about-photo reveal">
+      <img
+        src="/images/img-about-team.png"
+        alt="THE DISTINCT 5 Ltd team leading a strategy collaboration session"
+        loading="lazy"
+        width="1376"
+        height="1147"
+      />
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="facts-grid stagger">
+      {facts.map((fact) => (
+        <div class="fact reveal">
+          <div class="fact-n">{fact.n}</div>
+          <h4>{fact.title}</h4>
+          <p>{fact.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .about { background: var(--white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); margin-bottom: 48px; }
+  .about-copy { padding: 48px; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; }
+  .about-copy h3 {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: clamp(24px, 2.8vw, 32px); line-height: 1.25; letter-spacing: -0.4px; margin: 18px 0 20px;
+    color: var(--navy);
+  }
+  .about-copy .lead { color: var(--ink-soft); margin-bottom: 14px; font-size: 15px; }
+  .about-photo { aspect-ratio: 1; overflow: hidden; }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(8%); }
+
+  .facts-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-top: none; }
+  .fact { padding: 32px; border-right: 1px solid var(--line); }
+  .fact:last-child { border-right: none; }
+  .fact-n { font-family: var(--font-mono); font-size: 12px; color: var(--steel); margin-bottom: 14px; }
+  .fact h4 { font-family: var(--font-head); font-weight: 700; font-size: 16px; margin-bottom: 8px; color: var(--navy); }
+  .fact p { color: var(--ink-soft); font-size: 13.5px; }
+
+  @media (max-width: 980px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .about-copy { border-right: none; border-bottom: 1px solid var(--line); }
+    .facts-grid { grid-template-columns: 1fr; }
+    .fact { border-right: none; border-bottom: 1px solid var(--line); }
+    .fact:last-child { border-bottom: none; }
+  }
+</style>
