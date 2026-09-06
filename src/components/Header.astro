@@ -1,4 +1,6 @@
 ---
+import PWAInstallButton from './PWAInstallButton.astro';
+
 export interface Props {
   activeNav?: string | null;
 }
@@ -34,6 +36,7 @@ const links = [
     </ul>
   </nav>
   <div style="display: flex; align-items: center; gap: 16px;">
+    <PWAInstallButton />
     <button id="theme-toggle" class="btn btn-ghost" aria-label="Toggle Dark Mode" style="padding: 4px; border: none; background: transparent;">
       <span class="light-icon" style="font-size: 16px;">🌙</span>
       <span class="dark-icon" style="display: none; font-size: 16px;">☀️</span>

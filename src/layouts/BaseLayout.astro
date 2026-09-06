@@ -37,6 +37,10 @@ const canonicalUrl = new URL(path, Astro.site).toString();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Distinct 5" />
+    <link rel="apple-touch-icon" href="/images/company_logo.png" />
     <link rel="icon" href="/images/company_logo.png" type="image/x-icon" />
     <meta name="description" content={description} />
     <meta name="author" content="THE DISTINCT 5 Ltd" />
@@ -83,6 +87,11 @@ const canonicalUrl = new URL(path, Astro.site).toString();
     <Footer variant={footerVariant} />
     <ScrollToTop />
 
+    <div id="offline-indicator" style="display: none; position: fixed; bottom: 16px; left: 16px; z-index: 9999; background: #eab308; color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 13px; font-weight: 500; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <span style="width: 8px; height: 8px; background: #fff; border-radius: 50%; display: inline-block; animation: pulse 2s infinite;"></span>
+      Offline Mode — Cached data
+    </div>
+
     <script>
       import { initNav } from '../scripts/nav';
       import { initReveal } from '../scripts/reveal';
@@ -93,6 +102,17 @@ const canonicalUrl = new URL(path, Astro.site).toString();
       initReveal();
       initFaq();
       initTilt();
+
+      // Offline indicator logic
+      const offlineIndicator = document.getElementById('offline-indicator');
+      function updateOnlineStatus() {
+        if (offlineIndicator) {
+          offlineIndicator.style.display = navigator.onLine ? 'none' : 'flex';
+        }
+      }
+      window.addEventListener('online', updateOnlineStatus);
+      window.addEventListener('offline', updateOnlineStatus);
+      updateOnlineStatus();
     </script>
   </body>
 </html>
