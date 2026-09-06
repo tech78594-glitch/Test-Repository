@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import About from '../components/About.astro';
+import Services from '../components/Services.astro';
+import ApproachBanner from '../components/ApproachBanner.astro';
+import Process from '../components/Process.astro';
+import Why from '../components/Why.astro';
+import Insights from '../components/Insights.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Contact from '../components/Contact.astro';
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://thedistinct5ltd.com/#organization',
+      name: 'THE DISTINCT 5 Ltd',
+      url: 'https://thedistinct5ltd.com/',
+      description:
+        'Business consultancy and advisory services across strategy & operations, financial advisory & marketing, leadership & fractional executive support, branding, business development, and digital product, data & AI development.',
+      address: { '@type': 'PostalAddress', addressCountry: 'GB' },
+      areaServed: 'GB',
+      knowsAbout: [
+        'Business Strategy', 'Operations Optimisation', 'Financial Advisory', 'Marketing and Sales',
+        'Leadership Development', 'Fractional CFO', 'Fractional COO', 'Branding', 'Business Development',
+        'Digital Product Development', 'Data Engineering', 'Artificial Intelligence', 'Digital Transformation',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://thedistinct5ltd.com/#website',
+      url: 'https://thedistinct5ltd.com/',
+      name: 'THE DISTINCT 5 Ltd',
+      inLanguage: 'en-GB',
+      publisher: { '@id': 'https://thedistinct5ltd.com/#organization' },
+    },
+    {
+      '@type': 'ProfessionalService',
+      '@id': 'https://thedistinct5ltd.com/#service',
+      name: 'THE DISTINCT 5 Ltd',
+      url: 'https://thedistinct5ltd.com/',
+      priceRange: '££',
+      openingHours: 'Mo-Fr 09:00-17:00',
+      address: { '@type': 'PostalAddress', addressCountry: 'GB' },
+    },
+  ],
+});
+---
+
+<BaseLayout
+  title="THE DISTINCT 5 Ltd | Business Consultancy & Advisory"
+  description="THE DISTINCT 5 Ltd — business consultancy and advisory across strategy, finance, marketing, leadership, digital and AI. Clarity, strategy and measurable growth for ambitious companies."
+  path="/index.html"
+  jsonLd={jsonLd}
+  footerVariant="home"
+>
+  <Hero />
+  <Marquee />
+  <About />
+  <Services />
+  <ApproachBanner />
+  <Process />
+  <Why />
+  <Insights />
+  <Faq />
+  <CtaBand
+    heading="Less guesswork. More growth."
+    body="Book a complimentary 30-minute discovery call. We'll discuss your goals and outline exactly how we can help."
+    ctaLabel="Book Discovery Call"
+    ctaHref="#contact"
+  />
+  <Contact />
+</BaseLayout>

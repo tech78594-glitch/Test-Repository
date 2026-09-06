@@ -1,0 +1,405 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+interface StatCard {
+  value: string;
+  count?: number;
+  suffix?: string;
+  title: string;
+  body: string;
+}
+
+const stats: StatCard[] = [
+  { value: '0', count: 3, suffix: 'x', title: 'Faster Sales Cycles', body: 'AI-assisted prospecting, scoring, and outreach compress weeks of work into days.' },
+  { value: '0', count: 40, suffix: '%', title: 'Cost Reduction', body: 'Automating repetitive workflows frees teams for higher-value work.' },
+  { value: '0', count: 2, suffix: 'x', title: 'Pipeline Quality', body: 'Predictive models surface the accounts most likely to convert.' },
+  { value: '24/7', title: 'Always-On Insight', body: 'Continuous intelligence across customer data and market signals.' },
+];
+
+interface UseCase {
+  num: string;
+  title: string;
+  body: string;
+  tag: string;
+}
+
+const useCases: UseCase[] = [
+  { num: '01', title: 'Lead Generation & Account Scoring', body: 'Identify accounts that resemble your best customers and prioritise outreach shifting effort from volume to precision.', tag: 'Sales' },
+  { num: '02', title: 'Personalised Outreach at Scale', body: "Generative AI drafts tailored emails and proposals grounded in CRM data preserving reps' time for human conversations.", tag: 'Marketing & Sales' },
+  { num: '03', title: 'Sales Forecasting', body: 'Predictive analytics turn CRM data into reliable forecasts and surface at-risk deals early.', tag: 'RevOps' },
+  { num: '04', title: 'Customer Success & Retention', body: 'Churn models flag at-risk accounts; recommendation engines guide CSMs to next-best actions.', tag: 'Customer Success' },
+  { num: '05', title: 'Workflow Automation', body: 'From invoice processing to contract review, AI compresses cycle times and reduces error rates.', tag: 'Operations' },
+  { num: '06', title: 'Pricing & Margin Optimisation', body: 'Dynamic models recommend the price most likely to win at the margin you need.', tag: 'Finance' },
+  { num: '07', title: 'Knowledge & Decision Support', body: 'Internal AI assistants make institutional knowledge searchable in seconds.', tag: 'Enablement' },
+];
+
+const frameworkSteps = [
+  { n: 1, title: 'Align on Strategy', body: 'Define the business outcomes AI must drive revenue, margin, efficiency.' },
+  { n: 2, title: 'Audit Your Data', body: 'Assess data quality, accessibility, and governance. AI is only as good as its data.' },
+  { n: 3, title: 'Pilot with Purpose', body: 'Choose one high-value use case with clear metrics. Prove before you scale.' },
+  { n: 4, title: 'Operationalise', body: 'Embed AI into daily workflows, build training, assign ownership.' },
+  { n: 5, title: 'Govern & Scale', body: 'Establish policies, monitor outputs, expand function by function.' },
+];
+
+const pitfalls = [
+  { title: 'Tool-First Thinking', body: 'Buying AI software before defining the problem it must solve. Strategy precedes technology always.' },
+  { title: 'Poor Data Foundations', body: 'Inconsistent CRM hygiene, siloed systems, and unclear ownership cripple even the best models.' },
+  { title: 'No Clear Owner', body: 'AI initiatives without a senior sponsor lose momentum, budget, and accountability within months.' },
+  { title: 'Skipping Change Management', body: 'Technology only delivers when teams adopt it. Training and incentives matter as much as the model.' },
+  { title: 'Ignoring Governance', body: 'Privacy, compliance, and IP exposure must be designed in not retrofitted after a breach.' },
+];
+
+const horizons = [
+  { label: 'Months 0 – 3', title: 'Foundations', items: ['AI readiness assessment', 'Data audit & cleanup', 'Governance framework', 'Identify first pilots'] },
+  { label: 'Months 4 – 8', title: 'Pilot & Prove', items: ['Deploy 2 – 3 use cases', 'Measure against KPIs', 'Train pilot teams', 'Document learnings'] },
+  { label: 'Months 9 – 12', title: 'Scale & Embed', items: ['Roll out across functions', 'Build internal AI literacy', 'Refine governance', 'Plan year two'] },
+];
+
+const faqEntries = [
+  {
+    id: 'faq1',
+    question: 'How long before AI delivers measurable ROI?',
+    answer:
+      'A focused pilot typically shows measurable results within one to two quarters. The key is choosing a high-value use case with clear metrics up front efficiency, conversion, or cost so impact is visible before you scale.',
+  },
+  {
+    id: 'faq2',
+    question: 'Do we need a large data team to get started?',
+    answer:
+      'No. <br>Most B2B firms begin with the data they already hold in their CRM and core systems. What matters more than team size is data quality and a clear owner. We help you assess readiness and start at the right scale.',
+  },
+  {
+    id: 'faq3',
+    question: 'Is our data secure when using AI tools?',
+    answer:
+      'It can be with the right governance. That means clear policies on what data is used, vendor due diligence, access controls, and human-in-the-loop safeguards. Security and compliance should be designed into the rollout from day one, not retrofitted later.',
+  },
+  {
+    id: 'faq4',
+    question: 'Should we build custom AI or buy off-the-shelf?',
+    answer:
+      'Most firms should start with proven off-the-shelf tools for common use cases, and reserve custom builds for genuine competitive differentiators. The decision should follow your strategy we help you map each use case to the right approach.',
+  },
+];
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'How to Use AI in B2B',
+  description:
+    'A practical guide for business leaders on integrating artificial intelligence into B2B operations — use cases, framework, pitfalls and a 12-month roadmap.',
+  mainEntityOfPage: 'https://thedistinct5ltd.com/ai-in-b2b.html',
+  author: { '@type': 'Organization', name: 'THE DISTINCT 5 Ltd', url: 'https://thedistinct5ltd.com/' },
+  publisher: { '@type': 'Organization', name: 'THE DISTINCT 5 Ltd', url: 'https://thedistinct5ltd.com/' },
+  datePublished: '2026-08-16',
+  dateModified: '2026-08-16',
+  inLanguage: 'en-GB',
+});
+---
+
+<BaseLayout
+  title="How to Use AI in B2B | THE DISTINCT 5 Ltd"
+  description="A practical guide for business leaders on integrating artificial intelligence into B2B operations use cases, framework, pitfalls and a 12-month roadmap."
+  path="/ai-in-b2b.html"
+  jsonLd={jsonLd}
+  ogType="article"
+  activeNav="ai-in-b2b"
+  footerVariant="insight"
+>
+  <section class="hero" aria-label="Introduction">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Advisory Insight</span>
+        <h1>How to Use AI in B2B</h1>
+        <p>A practical guide for business leaders on integrating artificial intelligence into B2B operations from first pilot to enterprise advantage.</p>
+        <div class="hero-cta">
+          <a href="#intro" class="btn btn-primary">Explore the Guide &darr;</a>
+          <a href="/index.html#contact" class="btn btn-ghost">Talk to an Advisor</a>
+        </div>
+      </div>
+      <dl class="hero-facts">
+        <div>
+          <dt>Read time</dt>
+          <dd>9 minutes</dd>
+        </div>
+        <div>
+          <dt>Covers</dt>
+          <dd>Use cases &middot; adoption framework &middot; pitfalls &middot; 12-month roadmap</dd>
+        </div>
+        <div>
+          <dt>Written for</dt>
+          <dd>B2B leaders evaluating or scaling AI adoption</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="intro" id="intro" aria-label="Introduction to AI in B2B">
+    <div class="narrow reveal">
+      <p><span class="lead-mark">Artificial intelligence has shifted from experiment to expectation.</span> In B2B, where sales cycles are longer, accounts are higher value, and decisions involve multiple stakeholders, the right AI strategy can compound advantage across every function from marketing and sales to operations, finance, and customer success.</p>
+      <p>The companies winning with AI aren't the ones with the most tools. They're the ones treating AI as a structured business capability guided by clear goals, owned by senior leaders, and measured by outcomes.</p>
+    </div>
+  </section>
+
+  <section class="why-ai" id="why-ai" aria-label="Why AI matters">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Why It Matters</span>
+        <h2>B2B is where AI delivers <span class="grad-text">outsized leverage</span></h2>
+        <p>Data-rich, relationship-heavy, and process-driven three conditions where AI compounds advantage.</p>
+      </div>
+      <div class="grid-4 stagger">
+        {stats.map((s) => (
+          <div class="stat-card reveal">
+            {s.count !== undefined ? (
+              <div class="num" data-count={s.count} data-suffix={s.suffix}>0</div>
+            ) : (
+              <div class="num">{s.value}</div>
+            )}
+            <h4>{s.title}</h4>
+            <p>{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="usecases" id="usecases" aria-label="AI use cases">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Use Cases</span>
+        <h2>Where AI delivers <span class="grad-text">measurable value</span></h2>
+        <p>Seven high-impact applications across the B2B operating model.</p>
+      </div>
+      <div class="grid-3 stagger">
+        {useCases.map((uc) => (
+          <article class="tilt uc reveal">
+            <div class="uc-num">{uc.num}</div>
+            <h3>{uc.title}</h3>
+            <p>{uc.body}</p>
+            <span class="tag">{uc.tag}</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="framework" id="framework" aria-label="Adoption framework">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">The Framework</span>
+        <h2>A 5-step path to <span class="grad-text">B2B adoption</span></h2>
+        <p>Our recommended route from interest to impact.</p>
+      </div>
+      <div class="steps stagger">
+        {frameworkSteps.map((step) => (
+          <div class="step reveal">
+            <div class="step-badge" aria-hidden="true">{step.n}</div>
+            <h4>{step.title}</h4>
+            <p>{step.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="pitfalls" aria-label="Common pitfalls">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Watch Out</span>
+        <h2>Common pitfalls to <span class="grad-text">avoid</span></h2>
+        <p>The mistakes we see most often when firms approach AI without a plan.</p>
+      </div>
+      <div class="narrow stagger">
+        {pitfalls.map((p) => (
+          <div class="pitfall reveal">
+            <div class="pitfall-ico" aria-hidden="true">!</div>
+            <div><h4>{p.title}</h4><p>{p.body}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bigquote" aria-label="Key insight">
+    <div class="reveal">
+      <div class="qm" aria-hidden="true">&ldquo;</div>
+      <blockquote>In B2B, AI doesn't replace relationships it amplifies the firms that know how to use it to deepen them.</blockquote>
+    </div>
+  </section>
+
+  <section class="roadmap" id="roadmap" aria-label="12-month roadmap">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">The Roadmap</span>
+        <h2>Your 12-month <span class="grad-text">plan</span></h2>
+        <p>A realistic horizon plan for the typical mid-market B2B firm.</p>
+      </div>
+      <div class="roadmap-grid stagger">
+        {horizons.map((h) => (
+          <div class="horizon reveal">
+            <div class="horizon-label">{h.label}</div>
+            <h4>{h.title}</h4>
+            <ul>{h.items.map((item) => <li>{item}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq" aria-label="Frequently asked questions">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Questions? Answers.</span>
+        <h2>AI adoption <span class="grad-text">questions</span></h2>
+        <p>What B2B leaders ask us most about getting started with AI.</p>
+      </div>
+      <div class="faq-list reveal">
+        {faqEntries.map((entry) => (
+          <div class="faq-item">
+            <button class="faq-q" id={`${entry.id}q`} aria-expanded="false" aria-controls={`${entry.id}a`}>
+              {entry.question}
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a" id={`${entry.id}a`} role="region" aria-labelledby={`${entry.id}q`}>
+              <div class="faq-a-inner" set:html={entry.answer} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Make AI a business advantage"
+    body="THE DISTINCT 5 helps B2B firms design AI strategies that move revenue, margin, and capability. Book a complimentary strategy session."
+    ctaLabel="Book Strategy Session"
+    ctaHref="/index.html#contact"
+  />
+
+</BaseLayout>
+
+
+<style>
+  /* ============ HERO ============ */
+  .hero { padding-top: 178px; border-top: none; }
+  .hero-grid {
+    max-width: 1180px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.1fr 0.9fr;
+    border: 1px solid var(--line);
+  }
+  .hero-copy { padding: 56px 48px; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; }
+  .hero-copy .eyebrow { margin-bottom: 22px; }
+  .hero h1 {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: clamp(30px, 4vw, 48px); line-height: 1.12;
+    letter-spacing: -0.6px; margin-bottom: 20px; color: var(--navy);
+  }
+  .hero p { font-size: 16px; color: var(--ink-soft); max-width: 480px; margin-bottom: 28px; }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-facts { padding: 40px 44px; background: var(--paper); display: grid; gap: 24px; align-content: center; }
+  .hero-facts dt {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--steel); margin-bottom: 6px;
+  }
+  .hero-facts dd { font-family: var(--font-head); font-size: 14px; color: var(--navy); font-weight: 500; }
+
+  /* ============ INTRO ============ */
+  .intro { background: var(--paper); }
+  .intro p { font-size: 17px; color: var(--ink-soft); }
+  .intro p + p { margin-top: 18px; }
+  .intro .lead-mark { font-family: var(--font-display); font-weight: 800; color: var(--navy); font-size: 18px; }
+
+  /* ============ WHY AI STATS ============ */
+  .why-ai { background: var(--white); }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); }
+  .stat-card { padding: 30px 26px; border-right: 1px solid var(--line); }
+  .stat-card:last-child { border-right: none; }
+  .stat-card .num {
+    font-family: var(--font-display); font-weight: 800; font-size: 38px; line-height: 1;
+    color: var(--navy);
+  }
+  .stat-card h4 { font-family: var(--font-head); font-weight: 700; font-size: 15px; margin: 14px 0 6px; color: var(--navy); }
+  .stat-card p { font-size: 13px; color: var(--ink-soft); }
+
+  /* ============ USE CASES ============ */
+  .usecases { background: var(--paper); }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); background: var(--white); }
+  .uc { padding: 30px 26px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .uc-num { font-family: var(--font-mono); font-size: 20px; color: var(--line-strong); margin-bottom: 12px; }
+  .uc h3 { font-family: var(--font-head); font-weight: 700; font-size: 17px; margin-bottom: 9px; color: var(--navy); }
+  .uc p { color: var(--ink-soft); font-size: 13.5px; margin-bottom: 16px; }
+  .tag {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--steel);
+  }
+
+  /* ============ FRAMEWORK ============ */
+  .framework { background: var(--white); }
+  .steps { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); }
+  .step { padding: 28px 22px; border-right: 1px solid var(--line); }
+  .step:last-child { border-right: none; }
+  .step-badge {
+    font-family: var(--font-mono); font-size: 12px; color: var(--steel);
+    padding-bottom: 14px; margin-bottom: 14px; border-bottom: 2px solid var(--navy);
+  }
+  .step h4 { font-family: var(--font-head); font-weight: 700; font-size: 15px; margin-bottom: 8px; color: var(--navy); }
+  .step p { font-size: 12.5px; color: var(--ink-soft); }
+
+  /* ============ PITFALLS ============ */
+  .pitfalls { background: var(--paper); }
+  .pitfall {
+    display: grid; grid-template-columns: 40px 1fr; gap: 20px; align-items: start;
+    padding: 22px 4px; border-bottom: 1px solid var(--line);
+  }
+  .pitfall-ico {
+    font-family: var(--font-display); font-weight: 800; font-size: 16px; color: var(--steel);
+  }
+  .pitfall h4 { font-family: var(--font-head); font-weight: 700; font-size: 15.5px; margin-bottom: 5px; color: var(--navy); }
+  .pitfall p { color: var(--ink-soft); font-size: 13.5px; }
+
+  /* ============ BIG QUOTE ============ */
+  .bigquote { background: var(--navy); color: #fff; text-align: left; }
+  .bigquote .qm { font-family: var(--font-display); font-weight: 800; font-size: 60px; line-height: 0.6; color: var(--steel-soft); opacity: 0.5; }
+  .bigquote blockquote {
+    max-width: 780px; margin-top: 16px;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(20px, 2.8vw, 30px); line-height: 1.4; letter-spacing: -0.3px;
+  }
+
+  /* ============ ROADMAP ============ */
+  .roadmap { background: var(--white); }
+  .roadmap-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); }
+  .horizon { padding: 32px 28px; border-right: 1px solid var(--line); }
+  .horizon:last-child { border-right: none; }
+  .horizon-label {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--steel); margin-bottom: 8px;
+  }
+  .horizon h4 { font-family: var(--font-display); font-weight: 800; font-size: 18px; margin-bottom: 16px; color: var(--navy); }
+  .horizon ul { list-style: none; }
+  .horizon li {
+    font-size: 13.5px; color: var(--ink-soft); padding: 8px 0; position: relative; padding-left: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .horizon li:last-child { border-bottom: none; }
+  .horizon li::before { content: ''; position: absolute; left: 0; top: 14px; width: 6px; height: 6px; background: var(--steel); }
+
+  @media (max-width: 980px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-copy { border-right: none; border-bottom: 1px solid var(--line); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .roadmap-grid { grid-template-columns: 1fr; }
+    .roadmap .horizon { border-right: none; border-bottom: 1px solid var(--line); }
+    .roadmap .horizon:last-child { border-bottom: none; }
+  }
+  @media (max-width: 680px) {
+    .hero { padding-top: 96px; }
+    .hero-copy { padding: 40px 24px; }
+    .grid-4, .grid-3, .steps { grid-template-columns: 1fr; }
+    .stat-card, .uc, .step { border-right: none; }
+  }
+</style>
