@@ -1,15 +1,14 @@
 ---
 export interface Props {
-  activeNav?: 'ai-in-b2b' | null;
+  activeNav?: string | null;
 }
 const { activeNav = null } = Astro.props;
 
 const links = [
   { href: '/index.html#about', label: 'About' },
-  { href: '/index.html#services', label: 'Services' },
-  { href: '/index.html#process', label: 'Process' },
-  { href: '/index.html#insights', label: 'Insights' },
-  { href: '/ai-in-b2b.html', label: 'AI in B2B', key: 'ai-in-b2b' },
+  { href: '/services.html', label: 'Services', key: 'services' },
+  { href: '/how-we-work.html', label: 'Process', key: 'process' },
+  { href: '/index.html#news', label: 'News' },
   { href: '/index.html#faq', label: 'FAQ' },
   { href: '/index.html#contact', label: 'Contact' },
 ];

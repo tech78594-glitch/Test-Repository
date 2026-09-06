@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Process from '../components/Process.astro';
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'How We Work | THE DISTINCT 5 Ltd',
+  url: 'https://thedistinct5ltd.com/how-we-work.html',
+  description: 'Learn about our process and how THE DISTINCT 5 Ltd helps you achieve measurable growth.'
+});
+---
+
+<BaseLayout
+  title="How We Work | THE DISTINCT 5 Ltd"
+  description="Learn about our process and how THE DISTINCT 5 Ltd helps you achieve measurable growth."
+  path="/how-we-work.html"
+  jsonLd={jsonLd}
+  activeNav="process"
+>
+  <div style="padding-top: 96px;">
+    <Process />
+  </div>
+</BaseLayout>
