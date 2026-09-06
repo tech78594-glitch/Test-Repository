@@ -21,9 +21,3 @@ node_modules/
 
 # logs
 npm-debug.log*
-
-# files
-.ts
-.js
-.css
-.png
