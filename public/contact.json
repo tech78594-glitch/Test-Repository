@@ -1,0 +1,7 @@
+{
+  "email": "support@thedistinct5ltd.com",
+  "phone": "+44 (0) 75 2185 9459",
+  "location": "United Kingdom",
+  "hours": "Mon – Fri, 9:00 – 17:00",
+  "note": "This file is intentionally public — display logic lives in src/scripts/contactProtect.ts and src/data/contact.ts. Replace with a server endpoint to add rate-limiting or captcha protection."
+}
