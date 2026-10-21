@@ -1,0 +1,6 @@
+{
+  "name": "Mountain of Fire and Miracles Ministries Edinburgh",
+  "description": "Official website of MFM Edinburgh, a revival and deliverance ministry in Scotland. Join us for apostolic worship, aggressive prayers, biblical holiness, and life transformation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
