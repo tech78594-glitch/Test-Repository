@@ -21,6 +21,8 @@ import { PrayerRequestModal } from './components/PrayerRequestModal';
 import { JoinMinistryModal } from './components/JoinMinistryModal';
 import { MinistryAgentsModal } from './components/MinistryAgentsModal';
 import { GallerySection } from './components/GallerySection';
+import { FlagshipProgrammesSection } from './components/FlagshipProgrammesSection';
+import { PublicationsSection } from './components/PublicationsSection';
 import { LiveStreamBanner } from './components/LiveStreamBanner';
 import { LiveStreamModal } from './components/LiveStreamModal';
 import { Bot, Flame } from 'lucide-react';
@@ -105,6 +107,7 @@ export default function App() {
           isLive={isServiceLive}
           liveServiceName={liveStreamTitle}
           onWatchLive={handleOpenLiveStream}
+          onOpenGiving={handleOpenGiving}
         />
 
         {/* About & Pastoral Mandate */}
@@ -113,11 +116,21 @@ export default function App() {
           onOpenPrayerRequest={handleOpenPrayerRequest}
         />
 
+        {/* Flagship Programmes & PMCH (Official mountainoffire.org template) */}
+        <FlagshipProgrammesSection
+          onOpenPlanVisit={handleOpenPlanVisit}
+          onOpenPrayerRequest={handleOpenPrayerRequest}
+          onWatchLive={() => handleOpenLiveStream('Power Must Change Hands Live Broadcast')}
+        />
+
         {/* Weekly & Monthly Service Schedule */}
         <ServicesSection onOpenPlanVisit={handleOpenPlanVisit} />
 
         {/* Daily Altar of Fire & Targeted Prayer Bullets */}
         <DailyPrayerSection />
+
+        {/* Anointed Books & DKO Spiritual Warfare Library */}
+        <PublicationsSection onOpenAgents={handleOpenAgents} />
 
         {/* Ministries & Fellowships */}
         <MinistriesSection onJoinMinistry={handleJoinMinistry} />
@@ -156,9 +169,11 @@ export default function App() {
           className="group flex items-center gap-2.5 px-4 py-3 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white rounded-2xl shadow-xl hover:shadow-2xl border border-purple-700 hover:border-amber-400 transition-all transform hover:-translate-y-0.5"
           title="Open Spiritual & Visitor Assistant"
         >
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-400 to-red-600 flex items-center justify-center text-slate-950 font-bold shadow-xs">
-            <Flame className="w-4 h-4 fill-slate-950" />
-          </div>
+          <img
+            src="/assets/aistudio/MFM_logo_a7697bcf.png"
+            alt="MFM Logo"
+            className="w-8 h-8 object-contain rounded-full shadow-xs shrink-0"
+          />
           <div className="text-left hidden sm:block">
             <span className="text-[10px] text-amber-300 font-bold uppercase tracking-wider block leading-none">
               Ask Assistant

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Play, Shield, MapPin, Clock, ArrowRight, Bot, Flame } from 'lucide-react';
+import { Calendar, Play, Shield, MapPin, Clock, ArrowRight, Bot, Flame, Video, BookOpen, Heart, Swords, Sparkles } from 'lucide-react';
 import heroImage from '@/src/assets/images/hero_worship_sanctuary_1792594652620.jpg';
 
 interface HeroProps {
@@ -10,6 +10,7 @@ interface HeroProps {
   isLive?: boolean;
   liveServiceName?: string;
   onWatchLive?: (serviceName: string) => void;
+  onOpenGiving?: () => void;
 }
 
 interface NextServiceInfo {
@@ -30,6 +31,7 @@ export const Hero: React.FC<HeroProps> = ({
   isLive,
   liveServiceName = 'Sunday Glorious Worship & Deliverance Service',
   onWatchLive,
+  onOpenGiving,
 }) => {
   const [countdown, setCountdown] = useState<NextServiceInfo | null>(null);
 
@@ -131,22 +133,40 @@ export const Hero: React.FC<HeroProps> = ({
     return () => clearInterval(interval);
   }, []);
 
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="relative bg-purple-950 text-white pt-24 pb-12 lg:pt-32 lg:pb-16 overflow-hidden">
+    <div className="relative bg-purple-950 text-white pt-24 pb-16 lg:pt-32 lg:pb-20 overflow-hidden">
       {/* Background Hero Image with MFM Royal Purple & Holy Ghost Fire Scrim */}
       <div className="absolute inset-0 z-0">
         <img
           src={heroImage}
           alt="Worship gathering at Mountain of Fire and Miracles Ministries Edinburgh"
           referrerPolicy="no-referrer"
-          className="w-full h-full object-cover object-center scale-105 opacity-35 mix-blend-luminosity filter contrast-125"
+          className="w-full h-full object-cover object-center scale-105 opacity-30 mix-blend-luminosity filter contrast-125"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-purple-950 via-purple-950/80 to-purple-900/85" />
+        <div className="absolute inset-0 bg-gradient-to-t from-purple-950 via-purple-950/85 to-purple-900/90" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/20 via-red-600/10 to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl">
+        {/* Official MFM Worldwide Template Motto Ticker */}
+        <div className="mb-6 inline-flex items-center gap-2 bg-gradient-to-r from-red-950/90 via-purple-900/90 to-amber-950/90 px-4 py-1.5 rounded-full border border-amber-400/50 shadow-md text-[11px] sm:text-xs text-amber-200">
+          <Flame className="w-4 h-4 fill-amber-400 text-amber-400 shrink-0 animate-pulse" />
+          <span className="font-extrabold tracking-wider uppercase text-amber-300">
+            A Do-It-Yourself Gospel Ministry:
+          </span>
+          <span className="hidden sm:inline italic text-purple-100">
+            "Blessed be the Lord my strength which teacheth my hands to war, and my fingers to fight" (Psalm 144:1)
+          </span>
+        </div>
+
+        <div className="max-w-4xl">
           {/* Conditional Live Stream In-Progress Banner */}
           {isLive && (
             <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-red-600 via-purple-900 to-red-700 border-2 border-amber-400 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-3 animate-fade-in">
@@ -168,7 +188,7 @@ export const Hero: React.FC<HeroProps> = ({
               {onWatchLive && (
                 <button
                   onClick={() => onWatchLive(liveServiceName)}
-                  className="px-4 py-2 text-xs font-black text-slate-950 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 hover:from-amber-200 hover:to-amber-300 rounded-xl shadow-md transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0"
+                  className="px-4 py-2 text-xs font-black text-slate-950 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 hover:from-amber-200 hover:to-amber-300 rounded-xl shadow-md transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer"
                 >
                   <Play className="w-3.5 h-3.5 fill-slate-950" />
                   <span>Watch Now</span>
@@ -177,53 +197,69 @@ export const Hero: React.FC<HeroProps> = ({
             </div>
           )}
 
-          {/* Scripture Kicker with MFM Red & Gold */}
-          <div className="inline-flex items-center gap-2 text-xs font-semibold text-amber-300 tracking-wider uppercase mb-4 bg-purple-900/80 px-3.5 py-1.5 rounded-full border border-purple-700/80 shadow-xs">
-            <Flame className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+          {/* Scripture Kicker with MFM Official Emblem */}
+          <div className="inline-flex items-center gap-2.5 text-xs font-semibold text-amber-300 tracking-wider uppercase mb-3 bg-purple-900/80 px-3.5 py-1.5 rounded-full border border-purple-700/80 shadow-xs">
+            <img
+              src="/assets/aistudio/MFM_logo_a7697bcf.png"
+              alt="MFM Logo"
+              className="w-4 h-4 object-contain rounded-full shrink-0"
+            />
             <span>Obadiah 1:17</span>
             <span aria-hidden="true" className="text-purple-400">·</span>
             <span>Holiness · Deliverance · Possessions</span>
           </div>
 
-          {/* Marquee Headline */}
+          {/* Main Template Headline */}
           <h1
-            className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1] mb-6"
+            className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.08] mb-6"
             style={{ textWrap: 'balance' }}
           >
-            Revival, Apostolic Fire &amp; Deliverance in Edinburgh
+            Mountain of Fire &amp; Miracles Ministries
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-200 to-red-400 text-2xl sm:text-4xl lg:text-5xl mt-2 font-extrabold">
+              Edinburgh Sanctuary, Scotland
+            </span>
           </h1>
 
           {/* Value Proposition Description */}
           <p className="text-base sm:text-lg text-purple-100 leading-relaxed mb-8 max-w-2xl">
-            Welcome to <strong className="text-white font-semibold">Mountain of Fire and Miracles Ministries (MFM) Edinburgh</strong>. 
-            We are a full gospel church in Scotland committed to raising aggressive prayer champions, 
-            practicing inward and outward biblical holiness, and experiencing the supernatural power of God for total deliverance.
+            Welcome to the Edinburgh branch of <strong className="text-white font-semibold">MFM Worldwide</strong>. 
+            Under the apostolic leadership of <strong className="text-amber-200">Dr. D.K. Olukoya</strong> (General Overseer) and <strong className="text-amber-200">Pastor Dr. Festus Ogunmola</strong>, we are an aggressive prayer and deliverance church raising end-time champions, practicing inward holiness, and delivering captives by the fire of the Holy Ghost.
           </p>
 
           {/* Action Button Row */}
           <div className="flex flex-wrap items-center gap-3.5 mb-10">
             <button
               onClick={onOpenPlanVisit}
-              className="px-6 py-3.5 text-sm font-bold text-slate-950 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-amber-400 rounded-xl shadow-lg shadow-amber-500/25 transition-all flex items-center gap-2 group whitespace-nowrap"
+              className="px-6 py-3.5 text-sm font-bold text-slate-950 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-amber-400 rounded-xl shadow-lg shadow-amber-500/25 transition-all flex items-center gap-2 group whitespace-nowrap cursor-pointer"
             >
               <Calendar className="w-4 h-4 text-slate-950" />
               <span>Plan Your Visit</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </button>
 
+            {onWatchLive && (
+              <button
+                onClick={() => onWatchLive(liveServiceName)}
+                className="px-5 py-3.5 text-sm font-bold text-white bg-red-600 hover:bg-red-700 rounded-xl border border-red-500 shadow-md transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer"
+              >
+                <Video className="w-4 h-4" />
+                <span>Live Webcast</span>
+              </button>
+            )}
+
             {onOpenAgents && (
               <button
                 onClick={() => onOpenAgents('prayer')}
-                className="px-5 py-3.5 text-sm font-semibold text-white bg-purple-900/90 hover:bg-purple-800 rounded-xl border border-purple-700/80 transition-colors flex items-center gap-2 whitespace-nowrap shadow-sm"
+                className="px-5 py-3.5 text-sm font-semibold text-white bg-purple-900/90 hover:bg-purple-800 rounded-xl border border-purple-700/80 transition-colors flex items-center gap-2 whitespace-nowrap shadow-sm cursor-pointer"
               >
                 <Bot className="w-4 h-4 text-amber-300" />
-                <span>Ask Prayer Agent</span>
+                <span>AI Warfare Bullets</span>
               </button>
             )}
 
             <button
               onClick={() => onOpenSermon()}
-              className="px-5 py-3.5 text-sm font-semibold text-purple-200 hover:text-white bg-purple-950/70 hover:bg-purple-900 rounded-xl border border-purple-800/80 transition-colors flex items-center gap-2 whitespace-nowrap"
+              className="px-5 py-3.5 text-sm font-semibold text-purple-200 hover:text-white bg-purple-950/70 hover:bg-purple-900 rounded-xl border border-purple-800/80 transition-colors flex items-center gap-2 whitespace-nowrap cursor-pointer"
             >
               <Play className="w-4 h-4 text-amber-400 fill-amber-400" />
               <span>Watch Sermons</span>
@@ -231,10 +267,10 @@ export const Hero: React.FC<HeroProps> = ({
 
             <button
               onClick={onOpenPrayerRequest}
-              className="px-4 py-3.5 text-sm font-semibold text-purple-200 hover:text-white bg-purple-950/50 hover:bg-purple-900/70 rounded-xl border border-purple-800/60 transition-colors flex items-center gap-2 whitespace-nowrap"
+              className="px-4 py-3.5 text-sm font-semibold text-purple-200 hover:text-white bg-purple-950/50 hover:bg-purple-900/70 rounded-xl border border-purple-800/60 transition-colors flex items-center gap-2 whitespace-nowrap cursor-pointer"
             >
               <Shield className="w-4 h-4 text-amber-400" />
-              <span>Prayer Request</span>
+              <span>Submit Prayer Request</span>
             </button>
           </div>
 
@@ -256,7 +292,7 @@ export const Hero: React.FC<HeroProps> = ({
 
         {/* Dynamic Next Service Countdown Card in Royal Purple */}
         {countdown && (
-          <div className="mt-10 max-w-4xl bg-purple-900/60 backdrop-blur-md rounded-2xl border border-purple-700/70 p-5 sm:p-6 shadow-2xl">
+          <div className="mt-8 max-w-4xl bg-purple-900/70 backdrop-blur-md rounded-2xl border border-purple-700/80 p-5 sm:p-6 shadow-2xl">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 text-xs font-semibold text-amber-300 uppercase tracking-wider mb-1">
@@ -304,45 +340,109 @@ export const Hero: React.FC<HeroProps> = ({
             </div>
           </div>
         )}
-      </div>
 
-      {/* 4-Column Service Snapshot Strip */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-purple-900/50 border border-purple-800/80 rounded-xl p-4 hover:border-amber-400/50 transition-colors">
-            <span className="text-[11px] font-semibold text-amber-300 uppercase tracking-wider block mb-1">
-              Sunday Morning
-            </span>
-            <h4 className="text-sm font-bold text-white mb-1">Glorious Worship &amp; Deliverance</h4>
-            <p className="text-xs text-purple-300 mb-2">10:00 AM School · 10:45 AM Service</p>
-            <p className="text-xs text-purple-100 line-clamp-2">High praise, apostolic preaching, prophetic prayers, and deliverance ministration.</p>
-          </div>
+        {/* 4 Iconic Quick-Link Cards (Signature Mountainoffire.org Template Layout) */}
+        <div className="mt-12 pt-8 border-t border-purple-800/80">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {/* Card 1: Live Webcast */}
+            <div
+              onClick={() => onWatchLive ? onWatchLive(liveServiceName) : scrollToSection('services')}
+              className="bg-gradient-to-br from-red-950/80 to-purple-950 rounded-2xl p-5 border-2 border-red-500/60 hover:border-amber-400 transition-all duration-300 shadow-xl hover:-translate-y-1 cursor-pointer group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center mb-3 shadow-md group-hover:scale-110 transition-transform">
+                  <Video className="w-5 h-5" />
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-wider text-red-300 block mb-1">
+                  Connect Live
+                </span>
+                <h4 className="text-base font-extrabold text-white group-hover:text-amber-300 transition-colors mb-1.5">
+                  Live Webcast &amp; Media
+                </h4>
+                <p className="text-xs text-purple-200 line-clamp-2">
+                  Broadcast live from Edinburgh Sanctuary &amp; MFM Worldwide feeds on Sundays &amp; midweeks.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-purple-800/60 flex items-center justify-between text-xs font-bold text-amber-300">
+                <span>Join Broadcast</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
 
-          <div className="bg-purple-900/50 border border-purple-800/80 rounded-xl p-4 hover:border-amber-400/50 transition-colors">
-            <span className="text-[11px] font-semibold text-amber-300 uppercase tracking-wider block mb-1">
-              Tuesday Evening
-            </span>
-            <h4 className="text-sm font-bold text-white mb-1">Spiritual Clinic &amp; Bible Study</h4>
-            <p className="text-xs text-purple-300 mb-2">6:30 PM – 8:30 PM</p>
-            <p className="text-xs text-purple-100 line-clamp-2">Digging Deep verse-by-verse scripture analysis and individual spiritual diagnosis.</p>
-          </div>
+            {/* Card 2: Power Must Change Hands (PMCH) */}
+            <div
+              onClick={() => scrollToSection('programmes')}
+              className="bg-gradient-to-br from-amber-950/60 to-purple-950 rounded-2xl p-5 border-2 border-amber-500/60 hover:border-amber-400 transition-all duration-300 shadow-xl hover:-translate-y-1 cursor-pointer group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center mb-3 shadow-md group-hover:scale-110 transition-transform font-bold">
+                  <Swords className="w-5 h-5" />
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-wider text-amber-300 block mb-1">
+                  Flagship Miracle Service
+                </span>
+                <h4 className="text-base font-extrabold text-white group-hover:text-amber-300 transition-colors mb-1.5">
+                  Power Must Change Hands
+                </h4>
+                <p className="text-xs text-purple-200 line-clamp-2">
+                  1st Saturday of every month. Fasting, warfare prayers &amp; mass deliverance with Dr. D.K. Olukoya.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-purple-800/60 flex items-center justify-between text-xs font-bold text-amber-300">
+                <span>View PMCH Details</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
 
-          <div className="bg-purple-900/50 border border-purple-800/80 rounded-xl p-4 hover:border-amber-400/50 transition-colors">
-            <span className="text-[11px] font-semibold text-amber-300 uppercase tracking-wider block mb-1">
-              Friday Evening
-            </span>
-            <h4 className="text-sm font-bold text-white mb-1">Deliverance &amp; Intercession</h4>
-            <p className="text-xs text-purple-300 mb-2">6:30 PM – 8:30 PM</p>
-            <p className="text-xs text-purple-100 line-clamp-2">Warfare prayers breaking evil yokes, territorial battles, and interceding for Scotland.</p>
-          </div>
+            {/* Card 3: Daily Prayer Bullets & DKO Books */}
+            <div
+              onClick={() => scrollToSection('prayers')}
+              className="bg-gradient-to-br from-purple-900/60 to-purple-950 rounded-2xl p-5 border-2 border-purple-600/60 hover:border-amber-400 transition-all duration-300 shadow-xl hover:-translate-y-1 cursor-pointer group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-purple-700 text-white flex items-center justify-center mb-3 shadow-md group-hover:scale-110 transition-transform">
+                  <Flame className="w-5 h-5 fill-amber-300 text-amber-300" />
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-wider text-purple-300 block mb-1">
+                  Altar of Fire
+                </span>
+                <h4 className="text-base font-extrabold text-white group-hover:text-amber-300 transition-colors mb-1.5">
+                  Warfare Prayer Bullets
+                </h4>
+                <p className="text-xs text-purple-200 line-clamp-2">
+                  Targeted daily prayer points, prayer timer &amp; AI-powered spiritual bullet generator.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-purple-800/60 flex items-center justify-between text-xs font-bold text-amber-300">
+                <span>Start Praying</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
 
-          <div className="bg-purple-900/50 border border-purple-800/80 rounded-xl p-4 hover:border-amber-400/50 transition-colors">
-            <span className="text-[11px] font-semibold text-amber-300 uppercase tracking-wider block mb-1">
-              1st Saturday Monthly
-            </span>
-            <h4 className="text-sm font-bold text-white mb-1">Power Must Change Hands</h4>
-            <p className="text-xs text-purple-300 mb-2">9:00 AM – 12:00 PM</p>
-            <p className="text-xs text-purple-100 line-clamp-2">Worldwide flagship miracle programme led by General Overseer Dr. D.K. Olukoya.</p>
+            {/* Card 4: Online Giving & Gift Aid */}
+            <div
+              onClick={() => onOpenGiving ? onOpenGiving() : scrollToSection('giving')}
+              className="bg-gradient-to-br from-emerald-950/60 to-purple-950 rounded-2xl p-5 border-2 border-emerald-500/60 hover:border-amber-400 transition-all duration-300 shadow-xl hover:-translate-y-1 cursor-pointer group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center mb-3 shadow-md group-hover:scale-110 transition-transform">
+                  <Heart className="w-5 h-5" />
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-wider text-emerald-300 block mb-1">
+                  Honor God With Substance
+                </span>
+                <h4 className="text-base font-extrabold text-white group-hover:text-amber-300 transition-colors mb-1.5">
+                  Online Giving &amp; Tithes
+                </h4>
+                <p className="text-xs text-purple-200 line-clamp-2">
+                  1-click bank transfer details &amp; HMRC UK Gift Aid +25% tax relief calculator.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-purple-800/60 flex items-center justify-between text-xs font-bold text-amber-300">
+                <span>Give Online</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
           </div>
         </div>
       </div>

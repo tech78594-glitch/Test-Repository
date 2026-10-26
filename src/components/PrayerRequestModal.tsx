@@ -50,10 +50,12 @@ export const PrayerRequestModal: React.FC<PrayerRequestModalProps> = ({
       <div className="relative w-full max-w-xl bg-white rounded-2xl border border-purple-200 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
         {/* Header in MFM Royal Purple */}
         <div className="p-5 sm:p-6 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white flex items-center justify-between border-b border-purple-800">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-purple-800 text-amber-300 flex items-center justify-center shadow-xs">
-              <Shield className="w-5 h-5" />
-            </div>
+          <div className="flex items-center gap-3">
+            <img
+              src="/assets/aistudio/MFM_logo_a7697bcf.png"
+              alt="MFM Logo"
+              className="w-10 h-10 object-contain rounded-full bg-white/10 p-0.5 border border-white/20 shrink-0"
+            />
             <div>
               <div className="text-[10px] font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1">
                 <Flame className="w-3 h-3 fill-amber-400" />

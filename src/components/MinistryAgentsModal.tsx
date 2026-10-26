@@ -116,9 +116,11 @@ export const MinistryAgentsModal: React.FC<MinistryAgentsModalProps> = ({
         {/* Header with MFM Royal Purple */}
         <div className="p-4 sm:p-5 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white flex items-center justify-between border-b border-purple-800">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-red-600 flex items-center justify-center text-slate-950 shadow-md">
-              <Flame className="w-5 h-5 fill-slate-950 text-slate-950" />
-            </div>
+            <img
+              src="/assets/aistudio/MFM_logo_a7697bcf.png"
+              alt="MFM Logo"
+              className="w-10 h-10 object-contain rounded-full bg-white/10 p-0.5 border border-white/20 shrink-0"
+            />
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-[11px] font-bold text-amber-300 uppercase tracking-wider">

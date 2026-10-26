@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, Calendar, Shield, Flame, Sparkles, Bot } from 'lucide-react';
+import { Menu, X, Phone, Calendar, Shield, Flame, Sparkles, Bot, BookOpen, Video, MapPin, Mail } from 'lucide-react';
 
 interface NavbarProps {
   onOpenPlanVisit: () => void;
@@ -27,42 +27,90 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
+      {/* Top Utility Header Bar (mountainoffire.org template signature) */}
+      <div className="bg-purple-950 text-purple-200 border-b border-purple-900 py-1.5 px-4 text-xs hidden md:block">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4 text-[11px]">
+            <span className="flex items-center gap-1 text-amber-300 font-bold">
+              <Flame className="w-3.5 h-3.5 fill-amber-400" />
+              <span>MFM Worldwide Headquarters Affiliated</span>
+            </span>
+            <span className="text-purple-400">|</span>
+            <span className="text-purple-300">
+              Dr. D.K. Olukoya, General Overseer
+            </span>
+            <span className="text-purple-400">|</span>
+            <span className="text-purple-300 flex items-center gap-1">
+              <MapPin className="w-3 h-3 text-red-400" />
+              <span>13 Bangor Road, Leith, Edinburgh EH6 5JY</span>
+            </span>
+          </div>
+
+          <div className="flex items-center gap-4 text-[11px]">
+            <a
+              href="tel:07557644650"
+              className="flex items-center gap-1 text-purple-200 hover:text-amber-300 transition-colors font-medium"
+            >
+              <Phone className="w-3 h-3 text-amber-400" />
+              <span>07557 644650</span>
+            </a>
+            <span className="text-purple-400">|</span>
+            <a
+              href="mailto:info@mfmedinburgh.org"
+              className="flex items-center gap-1 text-purple-200 hover:text-amber-300 transition-colors"
+            >
+              <Mail className="w-3 h-3 text-amber-400" />
+              <span>info@mfmedinburgh.org</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Navigation Header */}
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`sticky top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-purple-950/95 backdrop-blur-md shadow-xl border-b border-purple-800/80 py-3'
-            : 'bg-gradient-to-b from-purple-950/95 via-purple-950/80 to-transparent py-4 text-white'
+            ? 'bg-purple-950/98 backdrop-blur-md shadow-2xl border-b border-purple-800 py-2.5'
+            : 'bg-purple-950/90 backdrop-blur-sm border-b border-purple-900/80 py-3.5 text-white'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Top Bar Contract: Zone 1 (Brand) - Zone 2 (4-5 Nav Links) - Zone 3 (1 Primary Action) */}
-          <div className="flex items-center justify-between gap-6 lg:gap-8">
-            {/* Zone 1: Brand Wordmark in MFM Royal Purple & Holy Ghost Fire */}
+          {/* Top Bar Contract: Zone 1 (Brand) - Zone 2 (Nav Links) - Zone 3 (Primary Action) */}
+          <div className="flex items-center justify-between gap-4 lg:gap-8">
+            {/* Zone 1: Official MFM Shield Emblem & Brand Name */}
             <a
               href="#"
-              className="flex items-center gap-2.5 text-white hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 group"
+              className="flex items-center gap-3 text-white hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 group"
               aria-label="MFM Edinburgh Home"
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-red-600 via-amber-500 to-amber-400 flex items-center justify-center text-slate-950 font-bold shadow-md shadow-red-500/25 group-hover:scale-105 transition-transform">
-                <Flame className="w-5 h-5 text-slate-950 fill-amber-300" />
-              </div>
+              <img
+                src="/assets/aistudio/MFM_logo_a7697bcf.png"
+                alt="Mountain of Fire and Miracles Ministries Official Logo"
+                className="w-11 h-11 object-contain drop-shadow-md group-hover:scale-105 transition-transform shrink-0 rounded-full bg-white/10 p-0.5 border border-white/20"
+              />
               <div className="flex flex-col">
-                <span className="text-lg font-extrabold tracking-tight text-white leading-tight">
+                <span className="text-lg font-black tracking-tight text-white leading-tight">
                   MFM Edinburgh
                 </span>
-                <span className="text-[10px] text-amber-300/95 font-semibold tracking-wider uppercase">
+                <span className="text-[10px] text-amber-300/95 font-bold tracking-wider uppercase">
                   Mountain of Fire &amp; Miracles
                 </span>
               </div>
             </a>
 
-            {/* Zone 2: Concise single-line text navigation links */}
-            <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-purple-100">
+            {/* Zone 2: Single-line text navigation links */}
+            <nav className="hidden xl:flex items-center gap-5 text-xs font-semibold text-purple-100">
               <a
                 href="#about"
                 className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
               >
                 About
+              </a>
+              <a
+                href="#programmes"
+                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
+              >
+                Programmes &amp; PMCH
               </a>
               <a
                 href="#services"
@@ -75,6 +123,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
               >
                 Daily Prayer
+              </a>
+              <a
+                href="#publications"
+                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
+              >
+                DKO Books
               </a>
               <a
                 href="#ministries"
@@ -104,7 +158,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 href="#contact"
                 className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
               >
-                Contact
+                Location
               </a>
             </nav>
 
@@ -113,17 +167,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               {onOpenAgents && (
                 <button
                   onClick={() => onOpenAgents('prayer')}
-                  className="px-3 py-2 text-xs font-semibold text-purple-100 hover:text-white bg-purple-900/80 hover:bg-purple-800 rounded-xl border border-purple-700/80 transition-all flex items-center gap-1.5 shadow-xs"
+                  className="px-3 py-2 text-xs font-semibold text-purple-100 hover:text-white bg-purple-900/80 hover:bg-purple-800 rounded-xl border border-purple-700/80 transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
                   title="Ask Prayer & Visitor Assistant"
                 >
                   <Bot className="w-3.5 h-3.5 text-amber-300" />
-                  <span>Ministry Assistant</span>
+                  <span>Prayer Assistant</span>
                 </button>
               )}
 
               <button
                 onClick={onOpenPlanVisit}
-                className="px-4 py-2 text-xs font-bold text-slate-950 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-amber-400 rounded-xl shadow-md hover:shadow-amber-500/25 transition-all whitespace-nowrap shrink-0 flex items-center gap-1.5"
+                className="px-4 py-2 text-xs font-black text-slate-950 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-amber-400 rounded-xl shadow-md hover:shadow-amber-500/25 transition-all whitespace-nowrap shrink-0 flex items-center gap-1.5 cursor-pointer"
               >
                 <Calendar className="w-3.5 h-3.5 text-slate-950" />
                 <span>Plan Your Visit</span>
@@ -131,7 +185,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             {/* Mobile Actions */}
-            <div className="flex sm:hidden items-center gap-2">
+            <div className="flex xl:hidden items-center gap-2">
               {onOpenAgents && (
                 <button
                   onClick={() => onOpenAgents('prayer')}
@@ -161,19 +215,24 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer with Royal Purple Styling */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
+        <div className="fixed inset-0 z-50 xl:hidden">
           <div
             className="fixed inset-0 bg-purple-950/80 backdrop-blur-sm"
             onClick={() => setMobileMenuOpen(false)}
           />
-          <div className="fixed inset-y-0 right-0 w-full max-w-xs bg-purple-950 border-l border-purple-800 p-6 flex flex-col justify-between shadow-2xl">
+          <div className="fixed inset-y-0 right-0 w-full max-w-xs bg-purple-950 border-l border-purple-800 p-6 flex flex-col justify-between shadow-2xl overflow-y-auto">
             <div>
               <div className="flex items-center justify-between pb-6 border-b border-purple-800/80">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-600 to-amber-500 flex items-center justify-center text-slate-950 font-bold">
-                    <Flame className="w-4 h-4 fill-slate-950" />
+                <div className="flex items-center gap-3">
+                  <img
+                    src="/assets/aistudio/MFM_logo_a7697bcf.png"
+                    alt="MFM Official Logo"
+                    className="w-9 h-9 object-contain drop-shadow-sm shrink-0 rounded-full bg-white/10 p-0.5 border border-white/20"
+                  />
+                  <div className="flex flex-col">
+                    <span className="text-base font-extrabold text-white leading-tight">MFM Edinburgh</span>
+                    <span className="text-[9px] text-amber-300 font-bold uppercase tracking-wider">Mountain of Fire</span>
                   </div>
-                  <span className="text-base font-bold text-white">MFM Edinburgh</span>
                 </div>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
@@ -184,13 +243,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </button>
               </div>
 
-              <div className="py-6 flex flex-col gap-4 text-sm font-medium text-purple-100">
+              <div className="py-6 flex flex-col gap-3 text-sm font-medium text-purple-100">
                 <a
                   href="#about"
                   onClick={() => setMobileMenuOpen(false)}
                   className="hover:text-amber-300 transition-colors py-1"
                 >
-                  About Us &amp; Leadership
+                  About Us &amp; Worldwide Commission
+                </a>
+                <a
+                  href="#programmes"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-amber-300 transition-colors py-1 text-amber-300 font-bold"
+                >
+                  Flagship Programmes (PMCH)
                 </a>
                 <a
                   href="#services"
@@ -205,6 +271,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                   className="hover:text-amber-300 transition-colors py-1"
                 >
                   Daily Prayer Bullets
+                </a>
+                <a
+                  href="#publications"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-amber-300 transition-colors py-1"
+                >
+                  DKO Spiritual Warfare Books
                 </a>
                 <a
                   href="#ministries"
@@ -242,7 +315,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => setMobileMenuOpen(false)}
                   className="hover:text-amber-300 transition-colors py-1"
                 >
-                  Location &amp; Contact
+                  Sanctuary Location &amp; Map
                 </a>
               </div>
             </div>

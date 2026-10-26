@@ -25,11 +25,16 @@ export const Footer: React.FC<FooterProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
           {/* Col 1: Brand & Mandate */}
           <div className="lg:col-span-4">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-red-600 to-amber-500 flex items-center justify-center text-slate-950 font-bold shadow-md">
-                <Flame className="w-5 h-5 fill-slate-950" />
+            <div className="flex items-center gap-3 mb-4">
+              <img
+                src="/assets/aistudio/MFM_logo_a7697bcf.png"
+                alt="Mountain of Fire and Miracles Ministries Emblem"
+                className="w-12 h-12 object-contain drop-shadow-md rounded-full bg-white/10 p-0.5 border border-white/20 shrink-0"
+              />
+              <div className="flex flex-col">
+                <span className="text-lg font-black text-white leading-tight">MFM Edinburgh</span>
+                <span className="text-[10px] text-amber-300 font-bold uppercase tracking-wider">Mountain of Fire &amp; Miracles</span>
               </div>
-              <span className="text-lg font-extrabold text-white">MFM Edinburgh</span>
             </div>
 
             <p className="text-xs text-purple-200/90 leading-relaxed mb-6">
@@ -54,17 +59,27 @@ export const Footer: React.FC<FooterProps> = ({
             <ul className="space-y-2.5 text-xs text-purple-300">
               <li>
                 <a href="#about" className="hover:text-amber-300 transition-colors">
-                  About the Ministry
+                  About MFM &amp; Mandate
+                </a>
+              </li>
+              <li>
+                <a href="#programmes" className="hover:text-amber-300 transition-colors text-amber-300 font-semibold">
+                  PMCH &amp; Flagship Gatherings
                 </a>
               </li>
               <li>
                 <a href="#services" className="hover:text-amber-300 transition-colors">
-                  Weekly Services
+                  Weekly Services Schedule
                 </a>
               </li>
               <li>
                 <a href="#prayers" className="hover:text-amber-300 transition-colors">
-                  Daily Prayer Bullets
+                  Daily Warfare Prayer Bullets
+                </a>
+              </li>
+              <li>
+                <a href="#publications" className="hover:text-amber-300 transition-colors">
+                  DKO Spiritual Books
                 </a>
               </li>
               <li>
@@ -74,12 +89,12 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <a href="#sermons" className="hover:text-amber-300 transition-colors">
-                  Sermon Library
+                  Sermon Media Center
                 </a>
               </li>
               <li>
                 <a href="#gallery" className="hover:text-amber-300 transition-colors">
-                  Photo Gallery
+                  Photo Gallery &amp; Outreach
                 </a>
               </li>
               <li>
@@ -89,6 +104,17 @@ export const Footer: React.FC<FooterProps> = ({
                 >
                   Giving &amp; Tithes
                 </button>
+              </li>
+              <li>
+                <a
+                  href="https://www.mountainoffire.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-amber-300 hover:text-white transition-colors flex items-center gap-1 font-bold"
+                >
+                  <span>MFM Worldwide Official</span>
+                  <span className="text-[10px]">↗</span>
+                </a>
               </li>
               {onOpenAgents && (
                 <li>

@@ -30,14 +30,21 @@ export const PlanVisitModal: React.FC<PlanVisitModalProps> = ({ isOpen, onClose 
       <div className="relative w-full max-w-2xl bg-white rounded-2xl border border-purple-200 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
         {/* Header in MFM Royal Purple */}
         <div className="p-5 sm:p-6 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white flex items-center justify-between border-b border-purple-800">
-          <div>
-            <div className="text-[10px] font-bold text-amber-300 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-              <Flame className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-              <span>First-Time Guest Guide</span>
+          <div className="flex items-center gap-3">
+            <img
+              src="/assets/aistudio/MFM_logo_a7697bcf.png"
+              alt="MFM Logo"
+              className="w-10 h-10 object-contain rounded-full bg-white/10 p-0.5 border border-white/20 shrink-0 hidden sm:block"
+            />
+            <div>
+              <div className="text-[10px] font-bold text-amber-300 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <Flame className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                <span>First-Time Guest Guide</span>
+              </div>
+              <h3 className="text-xl font-extrabold text-white">
+                Plan Your Visit to MFM Edinburgh
+              </h3>
             </div>
-            <h3 className="text-xl font-extrabold text-white">
-              Plan Your Visit to MFM Edinburgh
-            </h3>
           </div>
           <button
             onClick={onClose}

@@ -354,3 +354,119 @@ export const DAILY_PRAYER_POINTS = [
     bullet: 'My stolen blessings, delayed virtues, and confiscated opportunities, hear the word of the Lord: locate me now by fire, in Jesus’ name!',
   },
 ];
+
+export interface DKOPublication {
+  id: string;
+  title: string;
+  author: string;
+  tagline: string;
+  category: string;
+  description: string;
+  samplePrayer: string;
+  color: string;
+  badge: string;
+  readTime: string;
+}
+
+export const DKO_PUBLICATIONS: DKOPublication[] = [
+  {
+    id: 'prayer-rain',
+    title: 'Prayer Rain',
+    author: 'Dr. D.K. Olukoya',
+    tagline: 'The Master Blueprint for Aggressive Spiritual Warfare',
+    category: 'Spiritual Warfare & Deliverance',
+    description: 'The world-renowned compendium containing over 800 biblically anchored warfare prayer points. Prayer Rain has equipped millions worldwide to dismantle demonic yokes, terminate satanic harassment, and recover stolen virtues.',
+    samplePrayer: 'Every power assigned to swallow my divine benefits and delay my glory, vomit them and catch fire, in the name of Jesus!',
+    color: 'from-purple-950 via-purple-900 to-red-950',
+    badge: 'Bestseller Worldwide',
+    readTime: '800+ War Bullets',
+  },
+  {
+    id: 'command-morning',
+    title: 'Command The Morning',
+    author: 'Dr. D.K. Olukoya',
+    tagline: 'God’s Secret Weapon for Daily Supernatural Dominion',
+    category: 'Morning Devotional & Authority',
+    description: 'Discover how to take control of the elemental powers and spiritual atmosphere of your day before the sun rises. Based on Job 38:12, this timeless spiritual guide empowers believers to command every morning into favor and protection.',
+    samplePrayer: 'I take authority over this day, in the name of Jesus. I decree that the sun shall not smite me by day, nor the moon by night. Every agenda of failure for today is cancelled!',
+    color: 'from-amber-600 via-amber-700 to-purple-950',
+    badge: 'Daily Necessity',
+    readTime: 'Daily Strategy',
+  },
+  {
+    id: 'deliverance-head',
+    title: 'Deliverance of The Head',
+    author: 'Dr. D.K. Olukoya',
+    tagline: 'Liberating Your Destiny, Mind & Crown from Ancestral Evil',
+    category: 'Destiny Restoration',
+    description: 'Your physical and spiritual head represents your destiny, wisdom, glory, and leadership. This revelatory book exposes the mysteries of head bewitchment, evil laying of hands, and delivers your crown from foundational contamination.',
+    samplePrayer: 'My head, my head, my head! Reject every foundational bewitchment, refuse the voice of stagnation, and arise to shine, in the name of Jesus!',
+    color: 'from-red-900 via-purple-950 to-indigo-950',
+    badge: 'Special Deliverance',
+    readTime: 'Deep Deliverance',
+  },
+  {
+    id: 'pray-breakthroughs',
+    title: 'Pray Your Way to Breakthroughs',
+    author: 'Dr. D.K. Olukoya',
+    tagline: 'Targeted Prayers to Unlock Impossible Doors and Favour',
+    category: 'Breakthrough & Promotion',
+    description: 'A focused spiritual warfare manual engineered for times when you need God to make a miraculous way where there seems to be no way. Ideal for job breakthroughs, immigration victories, business expansion, and marital settlement.',
+    samplePrayer: 'O God of Elijah, let the doors of exceptional breakthrough that no man can shut open unto me this season, in the mighty name of Jesus!',
+    color: 'from-indigo-950 via-purple-900 to-slate-950',
+    badge: 'Breakthrough Classic',
+    readTime: 'Targeted Solutions',
+  },
+  {
+    id: '101-weapons',
+    title: '101 Weapons of Spiritual Warfare',
+    author: 'Dr. D.K. Olukoya',
+    tagline: 'The Celestial Armoury for Total Overcoming in End Times',
+    category: 'Spiritual Armoury',
+    description: 'An exhaustive analysis of 101 distinct supernatural weapons that God has deposited in the Holy Scriptures for believers: from the Blood of Jesus and the Fire of the Holy Ghost to Divine East Wind and Angellic Assistance.',
+    samplePrayer: 'Let the weapon of the Holy Ghost fire arise and pursue every stubborn pursuer of my life and family until they are completely overthrown, in Jesus’ name!',
+    color: 'from-purple-950 via-red-900 to-amber-900',
+    badge: 'Advanced Warfare',
+    readTime: 'Encyclopedic Guide',
+  },
+  {
+    id: 'manna-water',
+    title: 'Manna Water & Spiritual Clinic Guide',
+    author: 'Dr. D.K. Olukoya',
+    tagline: 'Spiritual Diagnosis, Healing, and Biblical Holiness',
+    category: 'Spiritual Health',
+    description: 'The companion resource for MFM midweek spiritual clinics and anointing services. Teaches divine diagnosis of stubborn illnesses, dream contamination, and steps to holistic physical and spiritual wholeness.',
+    samplePrayer: 'Every poison in my blood, organs, and spiritual foundation, dry up by the blood of Jesus, and let divine health take over my body!',
+    color: 'from-purple-900 via-indigo-900 to-purple-950',
+    badge: 'Spiritual Health',
+    readTime: 'Diagnostic Manual',
+  },
+];
+
+export const MFM_WORLDWIDE_PILLARS = [
+  {
+    title: 'A Do-It-Yourself Gospel Ministry',
+    scripture: 'Psalm 144:1',
+    description: 'At Mountain of Fire and Miracles Ministries, believers are trained so that their own hands are taught to war and their fingers to fight. You learn to pray through to your own victory.',
+    icon: 'Swords',
+  },
+  {
+    title: 'Holiness Within and Without',
+    scripture: 'Hebrews 12:14',
+    description: 'Without holiness, no man shall see the Lord. MFM holds an uncompromising stance on inward purity of thought, moral integrity, outward modesty, and righteous living.',
+    icon: 'ShieldCheck',
+  },
+  {
+    title: 'Total Deliverance on Mount Zion',
+    scripture: 'Obadiah 1:17',
+    description: 'Upon Mount Zion shall be deliverance, holiness, and the possession of possessions. We dismantle satanic networks, ancestral curses, and generational limitations by fire.',
+    icon: 'Flame',
+  },
+  {
+    title: 'Aggressive Prophetic Prayer',
+    scripture: 'Matthew 11:12',
+    description: 'The kingdom of heaven suffereth violence, and the violent take it by force. Fervent, passionate prayer releases the supernatural power of God in every human circumstance.',
+    icon: 'Zap',
+  },
+];
+

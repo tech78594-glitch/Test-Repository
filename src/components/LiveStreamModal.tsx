@@ -27,20 +27,27 @@ export const LiveStreamModal: React.FC<LiveStreamModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-purple-950/85 backdrop-blur-md animate-fade-in">
       <div className="relative w-full max-w-4xl bg-purple-950 border border-purple-800 rounded-2xl overflow-hidden shadow-2xl max-h-[92vh] flex flex-col">
-        {/* Header with Live Badge */}
+        {/* Header with Live Badge and Official Logo */}
         <div className="p-4 sm:p-5 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 border-b border-purple-800 flex items-center justify-between text-white">
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 bg-red-600 text-white text-[10px] font-black uppercase px-2 py-0.5 rounded-full shadow-xs animate-pulse">
-              <span className="w-1.5 h-1.5 rounded-full bg-white" />
-              <span>LIVE BROADCAST</span>
-            </div>
+            <img
+              src="/assets/aistudio/MFM_logo_a7697bcf.png"
+              alt="MFM Logo"
+              className="w-10 h-10 object-contain rounded-full bg-white/10 p-0.5 border border-white/20 shrink-0 hidden sm:block"
+            />
             <div>
+              <div className="flex items-center gap-2 mb-0.5">
+                <div className="flex items-center gap-1.5 bg-red-600 text-white text-[10px] font-black uppercase px-2 py-0.5 rounded-full shadow-xs animate-pulse">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                  <span>LIVE BROADCAST</span>
+                </div>
+                <span className="text-[10px] text-amber-300 font-bold uppercase tracking-wider hidden sm:inline">
+                  MFM Sanctuary Stream
+                </span>
+              </div>
               <h3 className="text-sm sm:text-base font-extrabold text-white truncate max-w-xs sm:max-w-md">
                 {serviceTitle}
               </h3>
-              <p className="text-[11px] text-amber-300">
-                MFM Edinburgh · 13 Bangor Road, Leith
-              </p>
             </div>
           </div>
 
