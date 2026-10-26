@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Play, Radio, X, Volume2, Flame, ExternalLink } from 'lucide-react';
+import { useLocale } from '@/src/context/LocaleContext';
 
 interface LiveStreamBannerProps {
   onWatchNow: (serviceName: string) => void;
@@ -10,6 +11,7 @@ export const LiveStreamBanner: React.FC<LiveStreamBannerProps> = ({
   onWatchNow,
   forcedLiveState,
 }) => {
+  const { t } = useLocale();
   const [isLive, setIsLive] = useState(false);
   const [currentServiceName, setCurrentServiceName] = useState('Glorious Worship & Deliverance Service');
   const [isDismissed, setIsDismissed] = useState(false);
@@ -126,7 +128,7 @@ export const LiveStreamBanner: React.FC<LiveStreamBannerProps> = ({
               className="px-4 py-1.5 text-xs font-extrabold text-slate-950 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 hover:from-amber-200 hover:to-amber-300 rounded-xl shadow-md transition-all flex items-center gap-1.5"
             >
               <Play className="w-3.5 h-3.5 fill-slate-950" />
-              <span>Watch Now</span>
+              <span>{t('live.watchNow')}</span>
             </button>
 
             <a

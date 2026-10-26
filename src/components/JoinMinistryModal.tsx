@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { X, Users, Check, Send, Flame } from 'lucide-react';
+import { X, Users, Check, Send, Flame, Loader2, CheckCircle2 } from 'lucide-react';
 import { MINISTRIES } from '@/src/data/churchData';
+import { AnimatedSuccessBadge } from './AnimatedSuccessBadge';
 
 interface JoinMinistryModalProps {
   isOpen: boolean;
@@ -20,6 +21,7 @@ export const JoinMinistryModal: React.FC<JoinMinistryModalProps> = ({
     ministry: preselectedMinistry || MINISTRIES[0].name,
     experience: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
@@ -32,11 +34,16 @@ export const JoinMinistryModal: React.FC<JoinMinistryModalProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitted(true);
+    }, 450);
   };
 
   const handleReset = () => {
     setSubmitted(false);
+    setIsSubmitting(false);
     onClose();
   };
 
@@ -72,23 +79,29 @@ export const JoinMinistryModal: React.FC<JoinMinistryModalProps> = ({
 
         <div className="p-6 overflow-y-auto">
           {submitted ? (
-            <div className="text-center py-8">
-              <div className="w-14 h-14 bg-purple-100 text-purple-900 rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm">
-                <Check className="w-7 h-7 stroke-[3]" />
+            <div className="text-center py-6 sm:py-8 animate-success-enter">
+              <AnimatedSuccessBadge variant="purple" />
+
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-semibold mb-3 border border-emerald-200">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Application Submitted Successfully</span>
               </div>
-              <h4 className="text-xl font-bold text-purple-950 mb-1">
+
+              <h4 className="text-xl sm:text-2xl font-bold text-purple-950 mb-1">
                 Welcome to Service, {formData.name}!
               </h4>
               <p className="text-xs sm:text-sm text-slate-700 max-w-sm mx-auto mb-6 leading-relaxed">
                 Your interest in the <strong className="text-purple-950">{formData.ministry}</strong> has been logged. 
                 The department coordinator will reach out to invite you to our next rehearsal and orientation.
               </p>
-              <button
-                onClick={handleReset}
-                className="px-6 py-2.5 text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-xl transition-colors shadow-xs"
-              >
-                Close
-              </button>
+              <div className="flex justify-center">
+                <button
+                  onClick={handleReset}
+                  className="px-6 py-2.5 text-xs font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 rounded-xl transition-all shadow-md"
+                >
+                  Done
+                </button>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -179,10 +192,20 @@ export const JoinMinistryModal: React.FC<JoinMinistryModalProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 text-xs font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 rounded-xl shadow-xs flex items-center gap-1.5"
+                  disabled={isSubmitting}
+                  className="px-5 py-2.5 text-xs font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 disabled:opacity-75 rounded-xl shadow-xs flex items-center gap-2 cursor-pointer transition-all"
                 >
-                  <Send className="w-3.5 h-3.5" />
-                  <span>Submit Application</span>
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin text-purple-950" />
+                      <span>Submitting Application...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-3.5 h-3.5" />
+                      <span>Submit Application</span>
+                    </>
+                  )}
                 </button>
               </div>
             </form>

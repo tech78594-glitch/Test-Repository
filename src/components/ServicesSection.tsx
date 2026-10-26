@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Clock, MapPin, Download, Check, Youtube, ExternalLink, Flame } from 'lucide-react';
+import { Calendar, Clock, MapPin, Download, Check, Youtube, ExternalLink, Flame, FileText } from 'lucide-react';
 import { SERVICES } from '@/src/data/churchData';
 
 interface ServicesSectionProps {
@@ -208,6 +208,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenPlanVisi
               <Youtube className="w-4 h-4 text-red-600 fill-red-600" />
               <span>Open YouTube Channel</span>
               <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+            <a
+              href="#bulletin"
+              className="px-4 py-3 text-xs font-semibold text-amber-300 hover:text-white bg-purple-900/80 hover:bg-purple-800 border border-amber-400/50 rounded-xl transition-all shadow-xs flex items-center justify-center gap-1.5 whitespace-nowrap"
+            >
+              <FileText className="w-3.5 h-3.5 text-amber-400" />
+              <span>Weekly Bulletin & Order</span>
             </a>
             <button
               onClick={onOpenPlanVisit}

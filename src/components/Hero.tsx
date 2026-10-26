@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Play, Shield, MapPin, Clock, ArrowRight, Bot, Flame, Video, BookOpen, Heart, Swords, Sparkles } from 'lucide-react';
 import heroImage from '@/src/assets/images/hero_worship_sanctuary_1792594652620.jpg';
+import { useLocale } from '@/src/context/LocaleContext';
 
 interface HeroProps {
   onOpenPlanVisit: () => void;
@@ -33,6 +34,7 @@ export const Hero: React.FC<HeroProps> = ({
   onWatchLive,
   onOpenGiving,
 }) => {
+  const { t } = useLocale();
   const [countdown, setCountdown] = useState<NextServiceInfo | null>(null);
 
   // Compute the next upcoming MFM Edinburgh service
@@ -214,16 +216,15 @@ export const Hero: React.FC<HeroProps> = ({
             className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.08] mb-6"
             style={{ textWrap: 'balance' }}
           >
-            Mountain of Fire &amp; Miracles Ministries
+            {t('hero.title')}
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-200 to-red-400 text-2xl sm:text-4xl lg:text-5xl mt-2 font-extrabold">
-              Edinburgh Sanctuary, Scotland
+              {t('hero.branch')}
             </span>
           </h1>
 
           {/* Value Proposition Description */}
           <p className="text-base sm:text-lg text-purple-100 leading-relaxed mb-8 max-w-2xl">
-            Welcome to the Edinburgh branch of <strong className="text-white font-semibold">MFM Worldwide</strong>. 
-            Under the apostolic leadership of <strong className="text-amber-200">Dr. D.K. Olukoya</strong> (General Overseer) and <strong className="text-amber-200">Pastor Dr. Festus Ogunmola</strong>, we are an aggressive prayer and deliverance church raising end-time champions, practicing inward holiness, and delivering captives by the fire of the Holy Ghost.
+            {t('hero.tagline')}
           </p>
 
           {/* Action Button Row */}
@@ -233,7 +234,7 @@ export const Hero: React.FC<HeroProps> = ({
               className="px-6 py-3.5 text-sm font-bold text-slate-950 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-amber-400 rounded-xl shadow-lg shadow-amber-500/25 transition-all flex items-center gap-2 group whitespace-nowrap cursor-pointer"
             >
               <Calendar className="w-4 h-4 text-slate-950" />
-              <span>Plan Your Visit</span>
+              <span>{t('hero.planVisit')}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </button>
 
@@ -243,7 +244,7 @@ export const Hero: React.FC<HeroProps> = ({
                 className="px-5 py-3.5 text-sm font-bold text-white bg-red-600 hover:bg-red-700 rounded-xl border border-red-500 shadow-md transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer"
               >
                 <Video className="w-4 h-4" />
-                <span>Live Webcast</span>
+                <span>{t('hero.watchBroadcast')}</span>
               </button>
             )}
 
@@ -270,7 +271,7 @@ export const Hero: React.FC<HeroProps> = ({
               className="px-4 py-3.5 text-sm font-semibold text-purple-200 hover:text-white bg-purple-950/50 hover:bg-purple-900/70 rounded-xl border border-purple-800/60 transition-colors flex items-center gap-2 whitespace-nowrap cursor-pointer"
             >
               <Shield className="w-4 h-4 text-amber-400" />
-              <span>Submit Prayer Request</span>
+              <span>{t('hero.submitPrayer')}</span>
             </button>
           </div>
 

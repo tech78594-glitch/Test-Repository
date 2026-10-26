@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { X, Shield, Send, HeartHandshake, Flame } from 'lucide-react';
+import { X, Shield, Send, HeartHandshake, Flame, Copy, CheckCircle2, Loader2 } from 'lucide-react';
+import { AnimatedSuccessBadge } from './AnimatedSuccessBadge';
 
 interface PrayerRequestModalProps {
   isOpen: boolean;
@@ -19,20 +20,37 @@ export const PrayerRequestModal: React.FC<PrayerRequestModalProps> = ({
     urgency: 'Standard',
     followUp: 'Pray in confidence (No call required)',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [refId, setRefId] = useState('');
+  const [copied, setCopied] = useState(false);
 
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     const generatedId = `MFM-PRAY-${Math.floor(10000 + Math.random() * 90000)}`;
     setRefId(generatedId);
-    setSubmitted(true);
+
+    // Subtle 450ms transition providing immediate feedback
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitted(true);
+    }, 450);
+  };
+
+  const handleCopyRef = () => {
+    if (refId) {
+      navigator.clipboard.writeText(refId);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   const handleReset = () => {
     setSubmitted(false);
+    setIsSubmitting(false);
     setFormData({
       name: '',
       email: '',
@@ -68,7 +86,7 @@ export const PrayerRequestModal: React.FC<PrayerRequestModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-purple-300 hover:text-white rounded-lg bg-purple-900"
+            className="p-1.5 text-purple-300 hover:text-white rounded-lg bg-purple-900 transition-colors"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -78,26 +96,52 @@ export const PrayerRequestModal: React.FC<PrayerRequestModalProps> = ({
         {/* Body */}
         <div className="p-6 overflow-y-auto">
           {submitted ? (
-            <div className="text-center py-8">
-              <div className="w-14 h-14 bg-purple-100 text-purple-900 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
-                <HeartHandshake className="w-7 h-7" />
+            <div className="text-center py-6 sm:py-8 animate-success-enter">
+              {/* Animated checkmark badge */}
+              <AnimatedSuccessBadge variant="purple" />
+
+              <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-semibold mb-3 border border-emerald-200">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Request Confirmed &amp; Received</span>
               </div>
-              <h4 className="text-xl font-bold text-purple-950 mb-1">
+
+              <h4 className="text-xl sm:text-2xl font-black text-purple-950 mb-1">
                 Your Prayer Burden Has Been Laid on the Altar
               </h4>
-              <p className="text-xs text-purple-800 font-semibold mb-3">
-                Tracking Reference: <strong className="font-mono">{refId}</strong>
-              </p>
+
+              <div className="my-4 inline-flex items-center gap-2 px-3.5 py-1.5 bg-purple-50 border border-purple-200 rounded-xl text-xs text-purple-900">
+                <span className="text-slate-500">Tracking Reference:</span>
+                <span className="font-mono font-bold text-purple-950">{refId}</span>
+                <button
+                  type="button"
+                  onClick={handleCopyRef}
+                  className="p-1 text-purple-600 hover:text-purple-900 rounded transition-colors"
+                  title="Copy reference code"
+                >
+                  <Copy className="w-3.5 h-3.5" />
+                </button>
+                {copied && <span className="text-[10px] text-emerald-600 font-bold">Copied!</span>}
+              </div>
+
               <p className="text-xs sm:text-sm text-slate-700 max-w-md mx-auto mb-6 leading-relaxed">
                 Pastor Dr. Festus Ogunmola and the MFM Edinburgh intercessory prayer team will stand in agreement 
                 with you upon Mount Zion. <em>“Again I say unto you, That if two of you shall agree on earth as touching any thing that they shall ask, it shall be done for them of my Father which is in heaven.”</em> — Matthew 18:19
               </p>
-              <button
-                onClick={handleReset}
-                className="px-6 py-2.5 text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-xl transition-colors shadow-xs"
-              >
-                Return to Site
-              </button>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="w-full sm:w-auto px-5 py-2.5 text-xs font-bold text-purple-900 hover:text-purple-950 border border-purple-200 hover:bg-purple-50 rounded-xl transition-colors"
+                >
+                  Submit Another Request
+                </button>
+                <button
+                  onClick={handleReset}
+                  className="w-full sm:w-auto px-6 py-2.5 text-xs font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 rounded-xl transition-all shadow-md hover:shadow-lg"
+                >
+                  Return to Site
+                </button>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -195,10 +239,20 @@ export const PrayerRequestModal: React.FC<PrayerRequestModalProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 text-xs font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 rounded-xl shadow-xs flex items-center gap-1.5"
+                  disabled={isSubmitting}
+                  className="px-5 py-2.5 text-xs font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 disabled:opacity-75 rounded-xl shadow-xs flex items-center gap-2 cursor-pointer transition-all"
                 >
-                  <Send className="w-3.5 h-3.5" />
-                  <span>Send Prayer Request</span>
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin text-purple-950" />
+                      <span>Laying Burden on Altar...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-3.5 h-3.5" />
+                      <span>Send Prayer Request</span>
+                    </>
+                  )}
                 </button>
               </div>
             </form>

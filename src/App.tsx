@@ -23,6 +23,8 @@ import { MinistryAgentsModal } from './components/MinistryAgentsModal';
 import { GallerySection } from './components/GallerySection';
 import { FlagshipProgrammesSection } from './components/FlagshipProgrammesSection';
 import { PublicationsSection } from './components/PublicationsSection';
+import { CommunityPrayerWall } from './components/CommunityPrayerWall';
+import { WeeklyBulletin } from './components/WeeklyBulletin';
 import { LiveStreamBanner } from './components/LiveStreamBanner';
 import { LiveStreamModal } from './components/LiveStreamModal';
 import { Bot, Flame } from 'lucide-react';
@@ -126,8 +128,14 @@ export default function App() {
         {/* Weekly & Monthly Service Schedule */}
         <ServicesSection onOpenPlanVisit={handleOpenPlanVisit} />
 
+        {/* Weekly Church Bulletin & Printable Order of Service */}
+        <WeeklyBulletin />
+
         {/* Daily Altar of Fire & Targeted Prayer Bullets */}
         <DailyPrayerSection />
+
+        {/* Public Community Prayer Wall & Altar of Agreement */}
+        <CommunityPrayerWall />
 
         {/* Anointed Books & DKO Spiritual Warfare Library */}
         <PublicationsSection onOpenAgents={handleOpenAgents} />

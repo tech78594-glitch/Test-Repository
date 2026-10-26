@@ -78,6 +78,11 @@ export const Footer: React.FC<FooterProps> = ({
                 </a>
               </li>
               <li>
+                <a href="#prayer-wall" className="hover:text-amber-300 transition-colors text-amber-300/90 font-medium flex items-center gap-1">
+                  <span>Community Prayer Wall</span>
+                </a>
+              </li>
+              <li>
                 <a href="#publications" className="hover:text-amber-300 transition-colors">
                   DKO Spiritual Books
                 </a>

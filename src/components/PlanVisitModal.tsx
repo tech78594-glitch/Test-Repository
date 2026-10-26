@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { X, Clock, Users, Check, Heart, Flame } from 'lucide-react';
+import { X, Clock, Users, Check, Heart, Flame, Loader2, CheckCircle2, MapPin, Calendar } from 'lucide-react';
+import { AnimatedSuccessBadge } from './AnimatedSuccessBadge';
 
 interface PlanVisitModalProps {
   isOpen: boolean;
@@ -16,13 +17,24 @@ export const PlanVisitModal: React.FC<PlanVisitModalProps> = ({ isOpen, onClose 
     hasChildren: 'No',
     notes: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitted(true);
+    }, 450);
+  };
+
+  const handleReset = () => {
+    setSubmitted(false);
+    setIsSubmitting(false);
+    onClose();
   };
 
   return (
@@ -48,7 +60,7 @@ export const PlanVisitModal: React.FC<PlanVisitModalProps> = ({ isOpen, onClose 
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-purple-300 hover:text-white rounded-lg bg-purple-900"
+            className="p-1.5 text-purple-300 hover:text-white rounded-lg bg-purple-900 transition-colors"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -58,28 +70,55 @@ export const PlanVisitModal: React.FC<PlanVisitModalProps> = ({ isOpen, onClose 
         {/* Content Body */}
         <div className="p-6 overflow-y-auto space-y-6">
           {submitted ? (
-            <div className="text-center py-10">
-              <div className="w-16 h-16 bg-purple-100 text-purple-900 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
-                <Check className="w-8 h-8 stroke-[3]" />
+            <div className="text-center py-6 sm:py-8 animate-success-enter">
+              {/* Animated checkmark badge */}
+              <AnimatedSuccessBadge variant="gold" />
+
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-semibold mb-3 border border-emerald-200">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Visit Confirmed &amp; Hospitality Team Notified</span>
               </div>
-              <h4 className="text-xl font-bold text-purple-950 mb-2">
+
+              <h4 className="text-2xl font-black text-purple-950 mb-2">
                 We Can’t Wait to Welcome You, {formData.name}!
               </h4>
               <p className="text-sm text-slate-700 max-w-md mx-auto mb-6 leading-relaxed">
                 Your visit reservation has been received. Our hospitality team at 13 Bangor Road, Leith, 
                 will be waiting with your welcome pack. We pray your life will never remain the same!
               </p>
-              <div className="bg-purple-50/70 p-4 rounded-xl border border-purple-200 text-xs text-left max-w-md mx-auto space-y-2 mb-6 text-purple-950">
-                <div><strong>When:</strong> {formData.attendingDate} (10:00 AM Sunday School / 10:45 AM Worship)</div>
-                <div><strong>Where:</strong> 13 Bangor Road, Leith, Edinburgh EH6 5JY</div>
-                <div><strong>Questions?</strong> Call 07557 644650 or email info@mfmedinburgh.org</div>
+              
+              <div className="bg-purple-50/80 p-4 rounded-xl border border-purple-200 text-xs text-left max-w-md mx-auto space-y-2.5 mb-6 text-purple-950 shadow-xs">
+                <div className="flex items-start gap-2">
+                  <Calendar className="w-4 h-4 text-purple-700 shrink-0 mt-0.5" />
+                  <div><strong>When:</strong> {formData.attendingDate} (10:00 AM Sunday School / 10:45 AM Worship)</div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <MapPin className="w-4 h-4 text-purple-700 shrink-0 mt-0.5" />
+                  <div><strong>Where:</strong> 13 Bangor Road, Leith, Edinburgh EH6 5JY</div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Users className="w-4 h-4 text-purple-700 shrink-0 mt-0.5" />
+                  <div><strong>Party Size:</strong> {formData.partySize} {formData.partySize === '1' ? 'Person' : 'People'}</div>
+                </div>
+                <div className="pt-2 border-t border-purple-200/60 text-[11px] text-purple-800">
+                  Questions? Call <strong>07557 644650</strong> or email <strong>info@mfmedinburgh.org</strong>
+                </div>
               </div>
-              <button
-                onClick={onClose}
-                className="px-6 py-2.5 text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-xl transition-colors shadow-xs"
-              >
-                Done
-              </button>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="w-full sm:w-auto px-5 py-2.5 text-xs font-bold text-purple-900 hover:text-purple-950 border border-purple-200 hover:bg-purple-50 rounded-xl transition-colors"
+                >
+                  Edit Details
+                </button>
+                <button
+                  onClick={handleReset}
+                  className="w-full sm:w-auto px-7 py-2.5 text-xs font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 rounded-xl transition-all shadow-md hover:shadow-lg"
+                >
+                  Done
+                </button>
+              </div>
             </div>
           ) : (
             <>
@@ -217,9 +256,17 @@ export const PlanVisitModal: React.FC<PlanVisitModalProps> = ({ isOpen, onClose 
                   </button>
                   <button
                     type="submit"
-                    className="px-6 py-2.5 text-xs font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 rounded-xl shadow-md transition-colors"
+                    disabled={isSubmitting}
+                    className="px-6 py-2.5 text-xs font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 disabled:opacity-75 rounded-xl shadow-md cursor-pointer transition-all flex items-center gap-2"
                   >
-                    Confirm Visit Reservation
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin text-purple-950" />
+                        <span>Preparing Welcome Pack...</span>
+                      </>
+                    ) : (
+                      <span>Confirm Visit Reservation</span>
+                    )}
                   </button>
                 </div>
               </form>
