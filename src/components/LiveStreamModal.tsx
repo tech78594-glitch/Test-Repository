@@ -31,7 +31,7 @@ export const LiveStreamModal: React.FC<LiveStreamModalProps> = ({
         <div className="p-4 sm:p-5 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 border-b border-purple-800 flex items-center justify-between text-white">
           <div className="flex items-center gap-3">
             <img
-              src="/assets/aistudio/MFM_logo_a7697bcf.png"
+              src={`${import.meta.env.BASE_URL}assets/brand/mfm-logo.png`}
               alt="MFM Logo"
               className="w-10 h-10 object-contain rounded-full bg-white/10 p-0.5 border border-white/20 shrink-0 hidden sm:block"
             />
@@ -76,7 +76,7 @@ export const LiveStreamModal: React.FC<LiveStreamModalProps> = ({
         <div className="relative aspect-video w-full bg-black">
           {/* Official MFM Edinburgh Stream Embed with fallback */}
           <iframe
-            src="https://www.youtube-nocookie.com/embed/live_stream?channel=UC7eK9hGq3UjXmD2M0d3W8qg&autoplay=1"
+            src="https://www.youtube-nocookie.com/embed/live_stream?channel=UC1s9pVF23PCw5VrhTAuHJiQ&autoplay=1"
             title="MFM Edinburgh Live Stream"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen

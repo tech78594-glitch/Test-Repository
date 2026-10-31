@@ -1,6 +1,18 @@
 import React, { useState } from 'react';
 import { X, Flame, Shield, MapPin, Sparkles, Send, Copy, Check, RotateCcw, Bot, BookOpen } from 'lucide-react';
 
+type AgentType = 'prayer' | 'visitor' | 'deliverance';
+
+function getMinistryReply(agentType: AgentType, query: string): string {
+  if (agentType === 'prayer') {
+    return `🔥 Warfare Prayer Bullets for "${query}" (Anchored in Obadiah 1:17 & Psalm 91):\n\n1. In the mighty name of Jesus, let the fire of the Holy Ghost surround my life, career, and household against every satanic embargo!\n2. Every ancestral chain of limitation and delayed blessing, break by fire, in the name of Jesus! (Micah 2:13)\n3. O Lord, arise and let unmerited divine favor, open doors, and acceleration locate me in Edinburgh and Scotland! (Psalm 102:13)\n4. By the blood of the Lamb, I possess all my confiscated possessions, health, and joy, in Jesus' name!\n\nWe invite you to join our Friday Deliverance & Intercession Hour (6:30 PM) or Sunday Worship (10:45 AM) at 13 Bangor Road, Leith!`;
+  }
+  if (agentType === 'visitor') {
+    return `Welcome to MFM Edinburgh! We look forward to receiving you at 13 Bangor Road, Leith, Edinburgh EH6 5JY.\n\n• Sunday Gathering: 10:00 AM (Sunday School) & 10:45 AM (Glorious Worship & Deliverance Service).\n• Getting Here: Lothian Buses 12, 16, 22, 34, and 35 stop nearby along Great Junction Street.\n• Parking: Free on-street parking is available on Bangor Road and surrounding side streets on Sundays.\n• Children: We have an active, safe Sunday school for children of all ages.\n\nOur ushers will greet you with a welcome pack at the door!`;
+  }
+  return `Deliverance is the bread of God's children (Obadiah 1:17).\n\n• Tuesday Spiritual Clinic (6:30 PM): Personal spiritual diagnosis and Digging Deep Bible Study.\n• Friday Deliverance Hour (6:30 PM): Fervent warfare prayers breaking ancestral yokes.\n• 1st Saturday Monthly: Power Must Change Hands (PMCH, 9:00 AM – 12:00 PM).\n\nFor confidential pastoral counseling with Pastor Dr. Festus Ogunmola, call 07557 644650.`;
+}
+
 interface MinistryAgentsModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -34,49 +46,17 @@ export const MinistryAgentsModal: React.FC<MinistryAgentsModalProps> = ({
     setInputQuery('');
     setLoading(true);
 
-    try {
-      const response = await fetch('/api/assistant', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          agentType: activeTab,
-          query: textToSend,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network error');
-      }
-
-      const data = await response.json();
-      const agentMsg = {
-        sender: 'agent' as const,
-        text: data.reply || 'God bless you. We have received your prayer request upon Mount Zion.',
+    // Replies are generated in the browser, so the site needs no server or API key.
+    await new Promise((resolve) => setTimeout(resolve, 600));
+    setMessages((prev) => [
+      ...prev,
+      {
+        sender: 'agent',
+        text: getMinistryReply(activeTab, textToSend),
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      };
-      setMessages((prev) => [...prev, agentMsg]);
-    } catch (err) {
-      // Local fallback
-      let fallbackText = '';
-      if (activeTab === 'prayer') {
-        fallbackText = `🔥 Warfare Prayer Bullets for "${textToSend}":\n\n1. In the mighty name of Jesus, let the fire of the Holy Ghost consume every spiritual hindrance assigned against my destiny (Obadiah 1:17)!\n2. Every ancestral padlock holding my breakthrough in Edinburgh, break by thunder, in the name of Jesus!\n3. I possess my divine possession and favor in Scotland, by the blood of Jesus (Psalm 102:13).\n\nJoin our Friday Deliverance & Intercessory Hour at 6:30 PM (13 Bangor Rd, Leith)!`;
-      } else if (activeTab === 'visitor') {
-        fallbackText = `We look forward to welcoming you at 13 Bangor Road, Leith, Edinburgh EH6 5JY!\n\n• Sunday School: 10:00 AM | Worship Service: 10:45 AM.\n• Buses: Lothian Buses 12, 16, 22, 34, 35 stop nearby at Great Junction Street.\n• Free on-street parking is available on Bangor Road on Sundays.\n• We have a dedicated children's Sunday school and hospitality ushers to welcome you!`;
-      } else {
-        fallbackText = `At MFM, deliverance breaks invisible spiritual chains (Obadiah 1:17).\n\n• Join our Tuesday Spiritual Clinic at 6:30 PM for personal diagnosis and Digging Deep Bible Study.\n• 1st Saturday Power Must Change Hands (9:00 AM – 12:00 PM).\n• For counseling with Pastor Dr. Festus Ogunmola, call 07557 644650.`;
-      }
-
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: 'agent',
-          text: fallbackText,
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        },
-      ]);
-    } finally {
-      setLoading(false);
-    }
+      },
+    ]);
+    setLoading(false);
   };
 
   const copyToClipboard = (text: string, index: number) => {
@@ -117,7 +97,7 @@ export const MinistryAgentsModal: React.FC<MinistryAgentsModalProps> = ({
         <div className="p-4 sm:p-5 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white flex items-center justify-between border-b border-purple-800">
           <div className="flex items-center gap-3">
             <img
-              src="/assets/aistudio/MFM_logo_a7697bcf.png"
+              src={`${import.meta.env.BASE_URL}assets/brand/mfm-logo.png`}
               alt="MFM Logo"
               className="w-10 h-10 object-contain rounded-full bg-white/10 p-0.5 border border-white/20 shrink-0"
             />

@@ -89,7 +89,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               aria-label="MFM Edinburgh Home"
             >
               <img
-                src="/assets/aistudio/MFM_logo_a7697bcf.png"
+                src={`${import.meta.env.BASE_URL}assets/brand/mfm-logo.png`}
                 alt="Mountain of Fire and Miracles Ministries Official Logo"
                 className="w-11 h-11 object-contain drop-shadow-md group-hover:scale-105 transition-transform shrink-0 rounded-full bg-white/10 p-0.5 border border-white/20"
               />
@@ -247,7 +247,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="flex items-center justify-between pb-6 border-b border-purple-800/80">
                 <div className="flex items-center gap-3">
                   <img
-                    src="/assets/aistudio/MFM_logo_a7697bcf.png"
+                    src={`${import.meta.env.BASE_URL}assets/brand/mfm-logo.png`}
                     alt="MFM Official Logo"
                     className="w-9 h-9 object-contain drop-shadow-sm shrink-0 rounded-full bg-white/10 p-0.5 border border-white/20"
                   />

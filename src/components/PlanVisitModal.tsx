@@ -44,7 +44,7 @@ export const PlanVisitModal: React.FC<PlanVisitModalProps> = ({ isOpen, onClose 
         <div className="p-5 sm:p-6 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white flex items-center justify-between border-b border-purple-800">
           <div className="flex items-center gap-3">
             <img
-              src="/assets/aistudio/MFM_logo_a7697bcf.png"
+              src={`${import.meta.env.BASE_URL}assets/brand/mfm-logo.png`}
               alt="MFM Logo"
               className="w-10 h-10 object-contain rounded-full bg-white/10 p-0.5 border border-white/20 shrink-0 hidden sm:block"
             />

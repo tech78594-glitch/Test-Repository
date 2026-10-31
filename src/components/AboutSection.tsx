@@ -73,7 +73,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             <div className="p-4 rounded-xl bg-purple-950 text-white border-l-4 border-l-amber-400 mb-6 shadow-md flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <img
-                  src="/assets/aistudio/MFM_logo_a7697bcf.png"
+                  src={`${import.meta.env.BASE_URL}assets/brand/mfm-logo.png`}
                   alt="Mountain of Fire and Miracles Ministries Official Emblem"
                   className="w-12 h-12 object-contain drop-shadow-md rounded-full bg-white/10 p-0.5 border border-white/20 shrink-0"
                 />

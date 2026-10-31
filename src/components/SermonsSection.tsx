@@ -71,9 +71,11 @@ export const SermonsSection: React.FC<SermonsSectionProps> = () => {
                     <Play className="w-5 h-5 fill-slate-950 ml-0.5" />
                   </div>
 
-                  <span className="absolute bottom-3 right-3 text-[11px] font-mono text-white bg-purple-950/80 px-2 py-0.5 rounded-md tabular-nums border border-purple-800">
-                    {sermon.duration}
-                  </span>
+                  {sermon.duration && (
+                    <span className="absolute bottom-3 right-3 text-[11px] font-mono text-white bg-purple-950/80 px-2 py-0.5 rounded-md tabular-nums border border-purple-800">
+                      {sermon.duration}
+                    </span>
+                  )}
                 </div>
 
                 {/* Details */}
@@ -95,10 +97,12 @@ export const SermonsSection: React.FC<SermonsSectionProps> = () => {
                     Preacher: <span className="text-purple-950 font-bold">{sermon.preacher}</span>
                   </p>
 
-                  <div className="flex items-center gap-1.5 text-xs text-purple-800 font-medium mb-3">
-                    <BookOpen className="w-3.5 h-3.5 text-red-600 shrink-0" />
-                    <span>{sermon.bibleVerse}</span>
-                  </div>
+                  {sermon.bibleVerse && (
+                    <div className="flex items-center gap-1.5 text-xs text-purple-800 font-medium mb-3">
+                      <BookOpen className="w-3.5 h-3.5 text-red-600 shrink-0" />
+                      <span>{sermon.bibleVerse}</span>
+                    </div>
+                  )}
 
                   <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
                     {sermon.summary}
@@ -157,29 +161,39 @@ export const SermonsSection: React.FC<SermonsSectionProps> = () => {
               <div className="p-6 overflow-y-auto bg-purple-900 text-purple-100 text-sm">
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-purple-200 mb-3 border-b border-purple-800 pb-3">
                   <span><strong>Minister:</strong> {activeModalSermon.preacher}</span>
-                  <span>·</span>
-                  <span><strong>Scripture:</strong> {activeModalSermon.bibleVerse}</span>
-                  <span>·</span>
-                  <span><strong>Duration:</strong> {activeModalSermon.duration}</span>
+                  {activeModalSermon.bibleVerse && (
+                    <>
+                      <span>·</span>
+                      <span><strong>Scripture:</strong> {activeModalSermon.bibleVerse}</span>
+                    </>
+                  )}
+                  {activeModalSermon.duration && (
+                    <>
+                      <span>·</span>
+                      <span><strong>Duration:</strong> {activeModalSermon.duration}</span>
+                    </>
+                  )}
                 </div>
 
                 <p className="text-purple-100 leading-relaxed mb-4">
                   {activeModalSermon.summary}
                 </p>
 
-                <div className="p-4 bg-purple-950 rounded-xl border border-purple-800">
-                  <h4 className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-2">
-                    Key Spiritual Insights
-                  </h4>
-                  <ul className="space-y-1.5 text-xs text-purple-200">
-                    {activeModalSermon.keyPoints.map((pt, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="text-amber-400 font-bold">•</span>
-                        <span>{pt}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {activeModalSermon.keyPoints && activeModalSermon.keyPoints.length > 0 && (
+                  <div className="p-4 bg-purple-950 rounded-xl border border-purple-800">
+                    <h4 className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-2">
+                      Key Spiritual Insights
+                    </h4>
+                    <ul className="space-y-1.5 text-xs text-purple-200">
+                      {activeModalSermon.keyPoints!.map((pt, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className="text-amber-400 font-bold">•</span>
+                          <span>{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
           </div>

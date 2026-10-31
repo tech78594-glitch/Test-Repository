@@ -451,7 +451,7 @@ export const WeeklyBulletin: React.FC = () => {
               <div className="flex items-start gap-4">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/95 p-1.5 shadow-lg shrink-0 flex items-center justify-center border-2 border-amber-400/80">
                   <img
-                    src="/assets/aistudio/MFM_logo_a7697bcf.png"
+                    src={`${import.meta.env.BASE_URL}assets/brand/mfm-logo.png`}
                     alt="MFM Edinburgh Logo"
                     className="w-full h-full object-contain"
                   />
@@ -988,7 +988,7 @@ export const WeeklyBulletin: React.FC = () => {
                 <div className="border-b-2 border-stone-900 pb-4 mb-6 text-center">
                   <div className="flex justify-center mb-2">
                     <img
-                      src="/assets/aistudio/MFM_logo_a7697bcf.png"
+                      src={`${import.meta.env.BASE_URL}assets/brand/mfm-logo.png`}
                       alt="MFM Logo"
                       className="h-16 w-16 object-contain"
                     />

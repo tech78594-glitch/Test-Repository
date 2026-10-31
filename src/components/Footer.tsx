@@ -27,7 +27,7 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="lg:col-span-4">
             <div className="flex items-center gap-3 mb-4">
               <img
-                src="/assets/aistudio/MFM_logo_a7697bcf.png"
+                src={`${import.meta.env.BASE_URL}assets/brand/mfm-logo.png`}
                 alt="Mountain of Fire and Miracles Ministries Emblem"
                 className="w-12 h-12 object-contain drop-shadow-md rounded-full bg-white/10 p-0.5 border border-white/20 shrink-0"
               />

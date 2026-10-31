@@ -27,11 +27,11 @@ export interface Sermon {
   preacher: string;
   date: string;
   series: string;
-  bibleVerse: string;
+  bibleVerse?: string;
   youtubeId: string;
   summary: string;
-  duration: string;
-  keyPoints: string[];
+  duration?: string;
+  keyPoints?: string[];
 }
 
 export interface Testimony {
@@ -193,54 +193,30 @@ export const MINISTRIES: Ministry[] = [
 export const SERMONS: Sermon[] = [
   {
     id: 'sermon-1',
-    title: 'Dismantling the Gates of Evil Limitation',
-    preacher: 'Dr. Festus Ogunmola',
-    date: 'Recent Sunday Message',
-    series: 'Breakthrough & Possessing Your Possessions',
-    bibleVerse: 'Obadiah 1:17; Psalm 24:7-10',
-    youtubeId: 'eU2q6Y-J8a8',
-    summary: 'A transformative revelation on how divine holiness and persistent warfare prayer shatter every generational and ancestral embargo holding your destiny down.',
-    duration: '1 hr 15 min',
-    keyPoints: [
-      'Recognizing satanic checkpoints in life and career',
-      'The covenant power of absolute holiness as your legal shield',
-      'How the blood of Jesus silences speaking altars',
-      'Aggressive decrees to recover lost ground',
-    ],
+    title: 'Sunday Service | 25th Oct, 2026',
+    preacher: 'Pastor Dr. Festus Ogunmola',
+    date: '25 Oct 2026',
+    series: 'Sunday Service',
+    youtubeId: 'Lk3ZYQvp_YQ',
+    summary: 'Full recording of our Sunday Worship & Deliverance Service at 13 Bangor Road, Leith.',
   },
   {
     id: 'sermon-2',
-    title: 'The Mystery of Midnight Prayers',
-    preacher: 'Dr. D.K. Olukoya (Worldwide GO)',
-    date: 'Power Must Change Hands',
-    series: 'Spiritual Warfare Manual',
-    bibleVerse: 'Acts 16:25-26; Matthew 13:25',
-    youtubeId: 'Z1BCkC3C7_Y',
-    summary: 'Discover the profound spiritual warfare secrets of rising between midnight and 3:00 AM to overthrow satanic plantation and declare victory before dawn.',
-    duration: '1 hr 45 min',
-    keyPoints: [
-      'Why the kingdom of darkness operates while men sleep',
-      'Midnight as the spiritual exchange market',
-      'Paul and Silas: breaking physical and spiritual chains',
-      '10 foundational midnight warfare prayer bulletins',
-    ],
+    title: 'Unrelenting Hallelujah | Choir Concert 2026',
+    preacher: 'MFM Edinburgh Choir',
+    date: '24 Oct 2026',
+    series: 'Choir Concert',
+    youtubeId: 'tJua5-bE3Kw',
+    summary: 'Our 2026 choir concert, Unrelenting Hallelujah — an evening of praise and worship.',
   },
   {
     id: 'sermon-3',
-    title: 'Possessing Your Possessions in Scotland',
-    preacher: 'Dr. Festus Ogunmola',
-    date: 'Sunday Deliverance Service',
-    series: 'Spiritual Clinic Series',
-    bibleVerse: 'Deuteronomy 2:24; Obadiah 1:17',
-    youtubeId: 'kJQP7kiw5Fk',
-    summary: 'How believers residing in the diaspora can overcome territorial resistance, prosper legitimately, and walk in divine favor through the Holy Spirit.',
-    duration: '58 min',
-    keyPoints: [
-      'Overcoming diaspora spiritual dryness and stagnation',
-      'Territorial intercession and spiritual authority',
-      'Living as a light and prayer altar in your workplace',
-      'Divine direction for immigrant families and students',
-    ],
+    title: 'Special Sunday Service | 11th Oct, 2026',
+    preacher: 'MFM Edinburgh',
+    date: '11 Oct 2026',
+    series: 'Special Sunday Service',
+    youtubeId: 'rjstHj2nZ3w',
+    summary: 'Cultural Day for Christ — a special Sunday service of African praise and a love feast.',
   },
 ];
 

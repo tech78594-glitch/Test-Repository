@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 import { Calendar, Play, Shield, MapPin, Clock, ArrowRight, Bot, Flame, Video, BookOpen, Heart, Swords, Sparkles } from 'lucide-react';
 import heroImage from '@/src/assets/images/hero_worship_sanctuary_1792594652620.jpg';
 import { useLocale } from '@/src/context/LocaleContext';
+import { Embers } from '@/src/components/motion/Embers';
+import { RollingNumber } from '@/src/components/motion/RollingNumber';
 
 interface HeroProps {
   onOpenPlanVisit: () => void;
@@ -36,6 +39,15 @@ export const Hero: React.FC<HeroProps> = ({
 }) => {
   const { t } = useLocale();
   const [countdown, setCountdown] = useState<NextServiceInfo | null>(null);
+
+  // Parallax: background drifts slower than the page, content eases away as you scroll past.
+  const heroRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', reduceMotion ? '0%' : '28%']);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1.05, reduceMotion ? 1.05 : 1.18]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -80]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.85], [1, reduceMotion ? 1 : 0.15]);
 
   // Compute the next upcoming MFM Edinburgh service
   useEffect(() => {
@@ -143,22 +155,31 @@ export const Hero: React.FC<HeroProps> = ({
   };
 
   return (
-    <div className="relative bg-purple-950 text-white pt-24 pb-16 lg:pt-32 lg:pb-20 overflow-hidden">
+    <div ref={heroRef} className="relative bg-purple-950 text-white pt-24 pb-16 lg:pt-32 lg:pb-20 overflow-hidden">
       {/* Background Hero Image with MFM Royal Purple & Holy Ghost Fire Scrim */}
       <div className="absolute inset-0 z-0">
-        <img
+        <motion.img
           src={heroImage}
           alt="Worship gathering at Mountain of Fire and Miracles Ministries Edinburgh"
           referrerPolicy="no-referrer"
-          className="w-full h-full object-cover object-center scale-105 opacity-30 mix-blend-luminosity filter contrast-125"
+          style={{ y: bgY, scale: bgScale }}
+          className="w-full h-full object-cover object-center opacity-30 mix-blend-luminosity filter contrast-125 will-change-transform"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-purple-950 via-purple-950/85 to-purple-900/90" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/20 via-red-600/10 to-transparent" />
+        {/* Drifting glows */}
+        <div aria-hidden="true" className="hero-glow w-[38rem] h-[38rem] -top-40 -left-32 bg-amber-500/20" />
+        <div aria-hidden="true" className="hero-glow w-[30rem] h-[30rem] top-1/3 -right-24 bg-red-600/20" style={{ animationDelay: '-6s', animationDuration: '22s' }} />
+        <div aria-hidden="true" className="hero-glow w-[26rem] h-[26rem] -bottom-32 left-1/3 bg-fuchsia-600/15" style={{ animationDelay: '-11s', animationDuration: '26s' }} />
+        <Embers />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         {/* Official MFM Worldwide Template Motto Ticker */}
-        <div className="mb-6 inline-flex items-center gap-2 bg-gradient-to-r from-red-950/90 via-purple-900/90 to-amber-950/90 px-4 py-1.5 rounded-full border border-amber-400/50 shadow-md text-[11px] sm:text-xs text-amber-200">
+        <div className="hero-rise mb-6 inline-flex items-center gap-2 bg-gradient-to-r from-red-950/90 via-purple-900/90 to-amber-950/90 px-4 py-1.5 rounded-full border border-amber-400/50 shadow-md text-[11px] sm:text-xs text-amber-200">
           <Flame className="w-4 h-4 fill-amber-400 text-amber-400 shrink-0 animate-pulse" />
           <span className="font-extrabold tracking-wider uppercase text-amber-300">
             A Do-It-Yourself Gospel Ministry:
@@ -168,7 +189,7 @@ export const Hero: React.FC<HeroProps> = ({
           </span>
         </div>
 
-        <div className="max-w-4xl">
+        <div className="hero-stagger max-w-4xl">
           {/* Conditional Live Stream In-Progress Banner */}
           {isLive && (
             <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-red-600 via-purple-900 to-red-700 border-2 border-amber-400 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-3 animate-fade-in">
@@ -202,7 +223,7 @@ export const Hero: React.FC<HeroProps> = ({
           {/* Scripture Kicker with MFM Official Emblem */}
           <div className="inline-flex items-center gap-2.5 text-xs font-semibold text-amber-300 tracking-wider uppercase mb-3 bg-purple-900/80 px-3.5 py-1.5 rounded-full border border-purple-700/80 shadow-xs">
             <img
-              src="/assets/aistudio/MFM_logo_a7697bcf.png"
+              src={`${import.meta.env.BASE_URL}assets/brand/mfm-logo.png`}
               alt="MFM Logo"
               className="w-4 h-4 object-contain rounded-full shrink-0"
             />
@@ -217,7 +238,7 @@ export const Hero: React.FC<HeroProps> = ({
             style={{ textWrap: 'balance' }}
           >
             {t('hero.title')}
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-200 to-red-400 text-2xl sm:text-4xl lg:text-5xl mt-2 font-extrabold">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-100 via-50% to-amber-300 text-shimmer text-2xl sm:text-4xl lg:text-5xl mt-2 font-extrabold">
               {t('hero.branch')}
             </span>
           </h1>
@@ -254,7 +275,7 @@ export const Hero: React.FC<HeroProps> = ({
                 className="px-5 py-3.5 text-sm font-semibold text-white bg-purple-900/90 hover:bg-purple-800 rounded-xl border border-purple-700/80 transition-colors flex items-center gap-2 whitespace-nowrap shadow-sm cursor-pointer"
               >
                 <Bot className="w-4 h-4 text-amber-300" />
-                <span>AI Warfare Bullets</span>
+                <span>Warfare Prayer Bullets</span>
               </button>
             )}
 
@@ -293,7 +314,7 @@ export const Hero: React.FC<HeroProps> = ({
 
         {/* Dynamic Next Service Countdown Card in Royal Purple */}
         {countdown && (
-          <div className="mt-8 max-w-4xl bg-purple-900/70 backdrop-blur-md rounded-2xl border border-purple-700/80 p-5 sm:p-6 shadow-2xl">
+          <div className="hero-rise mt-8 max-w-4xl bg-purple-900/70 backdrop-blur-md rounded-2xl border border-purple-700/80 p-5 sm:p-6 shadow-2xl">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 text-xs font-semibold text-amber-300 uppercase tracking-wider mb-1">
@@ -312,28 +333,28 @@ export const Hero: React.FC<HeroProps> = ({
               <div className="flex items-center gap-3 sm:gap-4 font-mono">
                 <div className="flex flex-col items-center bg-purple-950/90 border border-purple-800 px-3 py-2 rounded-xl min-w-[56px] shadow-inner">
                   <span className="text-xl sm:text-2xl font-bold text-amber-300 tabular-nums">
-                    {String(countdown.days).padStart(2, '0')}
+                    <RollingNumber value={countdown.days} />
                   </span>
                   <span className="text-[10px] uppercase font-sans text-purple-300">Days</span>
                 </div>
                 <span className="text-purple-400 font-bold text-xl">:</span>
                 <div className="flex flex-col items-center bg-purple-950/90 border border-purple-800 px-3 py-2 rounded-xl min-w-[56px] shadow-inner">
                   <span className="text-xl sm:text-2xl font-bold text-amber-300 tabular-nums">
-                    {String(countdown.hours).padStart(2, '0')}
+                    <RollingNumber value={countdown.hours} />
                   </span>
                   <span className="text-[10px] uppercase font-sans text-purple-300">Hours</span>
                 </div>
                 <span className="text-purple-400 font-bold text-xl">:</span>
                 <div className="flex flex-col items-center bg-purple-950/90 border border-purple-800 px-3 py-2 rounded-xl min-w-[56px] shadow-inner">
                   <span className="text-xl sm:text-2xl font-bold text-amber-300 tabular-nums">
-                    {String(countdown.minutes).padStart(2, '0')}
+                    <RollingNumber value={countdown.minutes} />
                   </span>
                   <span className="text-[10px] uppercase font-sans text-purple-300">Mins</span>
                 </div>
                 <span className="text-purple-400 font-bold text-xl">:</span>
                 <div className="flex flex-col items-center bg-purple-950/90 border border-purple-800 px-3 py-2 rounded-xl min-w-[56px] shadow-inner">
                   <span className="text-xl sm:text-2xl font-bold text-white tabular-nums">
-                    {String(countdown.seconds).padStart(2, '0')}
+                    <RollingNumber value={countdown.seconds} />
                   </span>
                   <span className="text-[10px] uppercase font-sans text-purple-300">Secs</span>
                 </div>
@@ -446,7 +467,7 @@ export const Hero: React.FC<HeroProps> = ({
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

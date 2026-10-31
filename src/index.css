@@ -116,3 +116,149 @@
   animation: successEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+
+/* ------------------------------------------------------------------ */
+/* Motion: modals, hero entrance, embers, glows, floating assistant    */
+/* ------------------------------------------------------------------ */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalRise {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Overlays fade in; their panel glides up into place. */
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out both;
+}
+.fixed.inset-0.animate-fade-in > :not(.fixed) {
+  animation: modalRise 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+}
+
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.hero-rise {
+  animation: heroRise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-stagger > * {
+  animation: heroRise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-stagger > *:nth-child(1) { animation-delay: 0.12s; }
+.hero-stagger > *:nth-child(2) { animation-delay: 0.22s; }
+.hero-stagger > *:nth-child(3) { animation-delay: 0.32s; }
+.hero-stagger > *:nth-child(4) { animation-delay: 0.42s; }
+.hero-stagger > *:nth-child(5) { animation-delay: 0.52s; }
+.hero-stagger > *:nth-child(6) { animation-delay: 0.62s; }
+
+/* Shimmer across the gold part of the headline */
+@keyframes goldShimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.text-shimmer {
+  background-size: 200% auto;
+  animation: goldShimmer 6s linear infinite;
+}
+
+/* Slow, drifting glows behind the hero */
+@keyframes glowDrift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(6%, -4%, 0) scale(1.12); }
+  66% { transform: translate3d(-5%, 5%, 0) scale(0.94); }
+}
+.hero-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  animation: glowDrift 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Rising embers */
+@keyframes emberRise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0;
+  }
+  10% { opacity: var(--ember-opacity, 0.6); }
+  80% { opacity: calc(var(--ember-opacity, 0.6) * 0.6); }
+  100% {
+    transform: translate3d(var(--ember-drift, 0px), -110vh, 0) scale(0.4);
+    opacity: 0;
+  }
+}
+.ember {
+  position: absolute;
+  bottom: -10px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, #fde68a 0%, #f59e0b 45%, rgba(220, 38, 38, 0) 75%);
+  box-shadow: 0 0 8px 2px rgba(251, 191, 36, 0.45);
+  animation-name: emberRise;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+/* Floating assistant button: gentle bob + soft pulse ring */
+@keyframes floatBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes pulseRing {
+  0% { transform: scale(0.95); opacity: 0.55; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+.float-bob {
+  animation: floatBob 4s ease-in-out infinite;
+}
+.pulse-ring {
+  animation: pulseRing 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+/* Tactile press feedback on all buttons (base layer, so Tailwind utilities still win) */
+@layer base {
+  button {
+    transition-property: color, background-color, border-color, box-shadow, opacity, translate, scale;
+    transition-duration: 150ms;
+  }
+  button:active:not(:disabled) {
+    scale: 0.97;
+  }
+}
+
+/* Respect visitors who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ember,
+  .hero-glow {
+    display: none;
+  }
+}

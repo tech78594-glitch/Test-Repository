@@ -28,6 +28,9 @@ import { WeeklyBulletin } from './components/WeeklyBulletin';
 import { LiveStreamBanner } from './components/LiveStreamBanner';
 import { LiveStreamModal } from './components/LiveStreamModal';
 import { Bot, Flame } from 'lucide-react';
+import { motion } from 'motion/react';
+import { ScrollProgress } from './components/motion/ScrollProgress';
+import { useScrollReveal } from './hooks/useScrollReveal';
 
 export default function App() {
   const [isPlanVisitOpen, setIsPlanVisitOpen] = useState(false);
@@ -39,6 +42,8 @@ export default function App() {
   const [isServiceLive, setIsServiceLive] = useState(false);
   const [agentTab, setAgentTab] = useState<'prayer' | 'visitor' | 'deliverance'>('prayer');
   const [selectedMinistryName, setSelectedMinistryName] = useState<string>('');
+
+  useScrollReveal();
 
   const handleOpenPlanVisit = () => {
     setIsPlanVisitOpen(true);
@@ -81,6 +86,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FDFCFF] text-slate-800 flex flex-col selection:bg-purple-700 selection:text-white">
+      <ScrollProgress />
+
       {/* Live Stream Top Banner (conditionally appears when service is in progress with Watch Now link) */}
       <LiveStreamBanner
         onWatchNow={(title) => {
@@ -171,14 +178,21 @@ export default function App() {
       />
 
       {/* Floating Ministry Assistant Trigger Button */}
-      <aside aria-label="Spiritual Assistant" className="fixed bottom-5 right-5 z-30">
+      <motion.aside
+        aria-label="Spiritual Assistant"
+        className="fixed bottom-5 right-5 z-30"
+        initial={{ opacity: 0, y: 40, scale: 0.8 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ type: 'spring', stiffness: 220, damping: 18, delay: 1.2 }}
+      >
         <button
           onClick={() => handleOpenAgents('prayer')}
-          className="group flex items-center gap-2.5 px-4 py-3 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white rounded-2xl shadow-xl hover:shadow-2xl border border-purple-700 hover:border-amber-400 transition-all transform hover:-translate-y-0.5"
+          className="relative group flex items-center gap-2.5 px-4 py-3 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white rounded-2xl shadow-xl hover:shadow-2xl border border-purple-700 hover:border-amber-400 transition-all hover:-translate-y-0.5 float-bob"
           title="Open Spiritual & Visitor Assistant"
         >
+          <span aria-hidden="true" className="pulse-ring pointer-events-none absolute inset-0 rounded-2xl border-2 border-amber-400/70" />
           <img
-            src="/assets/aistudio/MFM_logo_a7697bcf.png"
+            src={`${import.meta.env.BASE_URL}assets/brand/mfm-logo.png`}
             alt="MFM Logo"
             className="w-8 h-8 object-contain rounded-full shadow-xs shrink-0"
           />
@@ -191,7 +205,7 @@ export default function App() {
             </span>
           </div>
         </button>
-      </aside>
+      </motion.aside>
 
       {/* Interactive Modals */}
       <PlanVisitModal
