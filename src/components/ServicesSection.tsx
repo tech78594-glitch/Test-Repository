@@ -66,7 +66,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenPlanVisi
           </div>
 
           {/* Interactive Filter Control in MFM Purple */}
-          <div className="flex items-center gap-1 p-1 bg-purple-100/80 rounded-xl shrink-0 self-start md:self-auto border border-purple-200">
+          <div className="flex flex-wrap items-center gap-1 p-1 bg-purple-100/80 rounded-xl max-w-full self-start md:self-auto md:shrink-0 border border-purple-200">
             <button
               onClick={() => setFilter('all')}
               className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${
@@ -183,7 +183,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenPlanVisi
         </div>
 
         {/* Global Broadcast & Live Stream Info Box in MFM Royal Purple */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white border border-purple-800 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white border border-purple-800 shadow-xl flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 text-xs font-bold text-amber-300 uppercase tracking-wider mb-2">
               <Youtube className="w-4 h-4 text-red-500 fill-red-500" />
@@ -198,7 +198,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenPlanVisi
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 lg:shrink-0">
             <a
               href="https://www.youtube.com/@MFMEDINBURGH"
               target="_blank"

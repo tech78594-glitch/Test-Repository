@@ -31,7 +31,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       {/* Top Utility Header Bar (mountainoffire.org template signature) */}
-      <div className="bg-purple-950 text-purple-200 border-b border-purple-900 py-1.5 px-4 text-xs hidden md:block">
+      <div className="bg-purple-950 text-purple-200 border-b border-purple-900 py-1.5 px-4 text-xs hidden lg:block">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-4 text-[11px]">
             <span className="flex items-center gap-1 text-amber-300 font-bold">
@@ -79,32 +79,32 @@ export const Navbar: React.FC<NavbarProps> = ({
             : 'bg-purple-950/90 backdrop-blur-sm border-b border-purple-900/80 py-3.5 text-white'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl nav:max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Top Bar Contract: Zone 1 (Brand) - Zone 2 (Nav Links) - Zone 3 (Primary Action) */}
-          <div className="flex items-center justify-between gap-4 lg:gap-8">
+          <div className="flex items-center justify-between gap-2 sm:gap-4">
             {/* Zone 1: Official MFM Shield Emblem & Brand Name */}
             <a
               href="#"
-              className="flex items-center gap-3 text-white hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 group"
+              className="flex items-center gap-2 sm:gap-3 text-white hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 min-w-0 group"
               aria-label="MFM Edinburgh Home"
             >
               <img
                 src={`${import.meta.env.BASE_URL}assets/brand/mfm-logo.png`}
                 alt="Mountain of Fire and Miracles Ministries Official Logo"
-                className="w-11 h-11 object-contain drop-shadow-md group-hover:scale-105 transition-transform shrink-0 rounded-full bg-white/10 p-0.5 border border-white/20"
+                className="w-9 h-9 sm:w-11 sm:h-11 object-contain drop-shadow-md group-hover:scale-105 transition-transform shrink-0 rounded-full bg-white/10 p-0.5 border border-white/20"
               />
               <div className="flex flex-col">
-                <span className="text-lg font-black tracking-tight text-white leading-tight">
+                <span className="text-base sm:text-lg font-black tracking-tight text-white leading-tight">
                   MFM Edinburgh
                 </span>
-                <span className="text-[10px] text-amber-300/95 font-bold tracking-wider uppercase">
+                <span className="hidden min-[400px]:block text-[10px] text-amber-300/95 font-bold tracking-wider uppercase">
                   Mountain of Fire &amp; Miracles
                 </span>
               </div>
             </a>
 
             {/* Zone 2: Single-line text navigation links */}
-            <nav className="hidden xl:flex items-center gap-3.5 2xl:gap-5 text-xs font-semibold text-purple-100">
+            <nav className="hidden nav:flex items-center gap-3.5 min-[1680px]:gap-5 text-xs font-semibold text-purple-100">
               <a
                 href="#about"
                 className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
@@ -187,17 +187,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             </nav>
 
             {/* Zone 3: 1 Primary Action + Language Toggle + Assistant Quick Trigger */}
-            <div className="hidden sm:flex items-center gap-2.5 shrink-0">
-              <LanguageToggle />
+            <div className="hidden nav:flex items-center gap-2.5 shrink-0">
 
               {onOpenAgents && (
                 <button
                   onClick={() => onOpenAgents('prayer')}
                   className="px-3 py-2 text-xs font-semibold text-purple-100 hover:text-white bg-purple-900/80 hover:bg-purple-800 rounded-xl border border-purple-700/80 transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
                   title="Ask Prayer & Visitor Assistant"
+                  aria-label={t('nav.prayerAssistant')}
                 >
                   <Bot className="w-3.5 h-3.5 text-amber-300" />
-                  <span>{t('nav.prayerAssistant')}</span>
+                  <span className="hidden min-[1680px]:inline">{t('nav.prayerAssistant')}</span>
                 </button>
               )}
 
@@ -211,13 +211,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             {/* Mobile Actions */}
-            <div className="flex xl:hidden items-center gap-2">
-              <LanguageToggle />
+            <div className="flex nav:hidden items-center gap-2 shrink-0">
+              {/* Phones get the language switcher inside the menu; laptops have it in the top bar */}
+              <div className="hidden sm:block lg:hidden">
+                <LanguageToggle />
+              </div>
 
               {onOpenAgents && (
                 <button
                   onClick={() => onOpenAgents('prayer')}
-                  className="p-1.5 text-amber-300 bg-purple-900/80 border border-purple-700 rounded-lg"
+                  className="hidden sm:inline-flex p-1.5 text-amber-300 bg-purple-900/80 border border-purple-700 rounded-lg"
                   aria-label="Open Ministry Assistant"
                 >
                   <Bot className="w-4 h-4" />
@@ -225,7 +228,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
               <button
                 onClick={onOpenPlanVisit}
-                className="px-3 py-1.5 text-xs font-bold text-slate-950 bg-amber-400 rounded-lg whitespace-nowrap"
+                className="px-2.5 min-[400px]:px-3 py-1.5 text-xs font-bold text-slate-950 bg-amber-400 rounded-lg whitespace-nowrap"
               >
                 {t('nav.planVisit')}
               </button>
@@ -243,7 +246,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer with Royal Purple Styling */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 xl:hidden">
+        <div className="fixed inset-0 z-50 nav:hidden">
           <div
             className="fixed inset-0 bg-purple-950/80 backdrop-blur-sm"
             onClick={() => setMobileMenuOpen(false)}

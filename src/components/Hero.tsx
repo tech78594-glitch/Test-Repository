@@ -155,7 +155,7 @@ export const Hero: React.FC<HeroProps> = ({
   };
 
   return (
-    <div ref={heroRef} className="relative bg-purple-950 text-white pt-24 pb-16 lg:pt-32 lg:pb-20 overflow-hidden">
+    <div ref={heroRef} className="relative bg-purple-950 text-white pt-10 pb-12 sm:pt-24 sm:pb-16 lg:pt-32 lg:pb-20 overflow-hidden">
       {/* Background Hero Image with MFM Royal Purple & Holy Ghost Fire Scrim */}
       <div className="absolute inset-0 z-0">
         <motion.img
@@ -249,7 +249,7 @@ export const Hero: React.FC<HeroProps> = ({
           </p>
 
           {/* Action Button Row */}
-          <div className="flex flex-wrap items-center gap-3.5 mb-10">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-3.5 mb-10 max-sm:*:w-full max-sm:*:justify-center">
             <button
               onClick={onOpenPlanVisit}
               className="px-6 py-3.5 text-sm font-bold text-slate-950 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-amber-400 rounded-xl shadow-lg shadow-amber-500/25 transition-all flex items-center gap-2 group whitespace-nowrap cursor-pointer"
