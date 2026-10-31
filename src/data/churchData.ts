@@ -1,3 +1,6 @@
+import sermonVideos from './sermons.generated.json';
+import sermonOverrides from './sermon-overrides.json';
+
 export interface ServiceSchedule {
   id: string;
   day: string;
@@ -190,35 +193,58 @@ export const MINISTRIES: Ministry[] = [
   },
 ];
 
-export const SERMONS: Sermon[] = [
-  {
-    id: 'sermon-1',
-    title: 'Sunday Service | 25th Oct, 2026',
-    preacher: 'Pastor Dr. Festus Ogunmola',
-    date: '25 Oct 2026',
-    series: 'Sunday Service',
-    youtubeId: 'Lk3ZYQvp_YQ',
-    summary: 'Full recording of our Sunday Worship & Deliverance Service at 13 Bangor Road, Leith.',
-  },
-  {
-    id: 'sermon-2',
-    title: 'Unrelenting Hallelujah | Choir Concert 2026',
-    preacher: 'MFM Edinburgh Choir',
-    date: '24 Oct 2026',
-    series: 'Choir Concert',
-    youtubeId: 'tJua5-bE3Kw',
-    summary: 'Our 2026 choir concert, Unrelenting Hallelujah — an evening of praise and worship.',
-  },
-  {
-    id: 'sermon-3',
-    title: 'Special Sunday Service | 11th Oct, 2026',
+// Sermons come straight from the YouTube channel. scripts/sync-sermons.mjs refreshes
+// sermons.generated.json on every deploy; sermon-overrides.json adds optional details
+// (preacher, summary, scripture…) for individual videos.
+
+interface SermonVideo {
+  youtubeId: string;
+  title: string;
+  published: string;
+  description: string;
+}
+
+const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+
+/** Service date from a title like "Sunday Service | 25th Oct, 2026", else the upload date. */
+function serviceDate(video: SermonVideo): string {
+  const m = video.title.match(/(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+),?\s+(\d{4})/);
+  const month = m ? MONTHS.indexOf(m[2].slice(0, 3).toLowerCase()) : -1;
+  const date = m && month >= 0 ? new Date(Number(m[3]), month, Number(m[1])) : new Date(video.published);
+  return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function seriesFor(title: string): string {
+  if (/choir|concert/i.test(title)) return 'Choir Concert';
+  if (/special/i.test(title)) return 'Special Service';
+  if (/thanksgiving/i.test(title)) return 'Thanksgiving Service';
+  if (/pmch|power must change hands/i.test(title)) return 'Power Must Change Hands';
+  if (/sunday/i.test(title)) return 'Sunday Service';
+  return 'Message';
+}
+
+/** First paragraph of the YouTube description, trimmed to a card-sized summary. */
+function summaryFor(video: SermonVideo): string {
+  const first = video.description.split(/\n\s*\n/)[0]?.replace(/\s+/g, ' ').trim() ?? '';
+  if (!first) return 'Full recording from MFM Edinburgh, 13 Bangor Road, Leith.';
+  return first.length > 180 ? `${first.slice(0, 177).trimEnd()}…` : first;
+}
+
+const overrides = sermonOverrides as Record<string, Partial<Sermon> | string>;
+
+export const SERMONS: Sermon[] = (sermonVideos as SermonVideo[]).map((video) => {
+  const extra = overrides[video.youtubeId];
+  return {
+    id: video.youtubeId,
+    title: video.title.replace(/\s*\|\s*/g, ' | '),
     preacher: 'MFM Edinburgh',
-    date: '11 Oct 2026',
-    series: 'Special Sunday Service',
-    youtubeId: 'rjstHj2nZ3w',
-    summary: 'Cultural Day for Christ — a special Sunday service of African praise and a love feast.',
-  },
-];
+    date: serviceDate(video),
+    series: seriesFor(video.title),
+    youtubeId: video.youtubeId,
+    summary: summaryFor(video),
+    ...(typeof extra === 'object' ? extra : {}),
+  };
+});
 
 export const TESTIMONIES: Testimony[] = [
   {

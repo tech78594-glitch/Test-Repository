@@ -104,7 +104,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </a>
 
             {/* Zone 2: Single-line text navigation links */}
-            <nav className="hidden xl:flex items-center gap-5 text-xs font-semibold text-purple-100">
+            <nav className="hidden xl:flex items-center gap-3.5 2xl:gap-5 text-xs font-semibold text-purple-100">
               <a
                 href="#about"
                 className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
@@ -159,6 +159,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
               >
                 {t('nav.sermons')}
+              </a>
+              <a
+                href="#news"
+                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
+              >
+                {t('nav.news')}
               </a>
               <a
                 href="#gallery"
@@ -338,6 +344,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                   className="hover:text-amber-300 transition-colors py-1"
                 >
                   {t('nav.sermons')}
+                </a>
+                <a
+                  href="#news"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-amber-300 transition-colors py-1"
+                >
+                  {t('nav.news')}
                 </a>
                 <a
                   href="#gallery"

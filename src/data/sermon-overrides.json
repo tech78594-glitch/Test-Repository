@@ -1,0 +1,13 @@
+{
+  "_help": "Optional extra details for specific videos, keyed by YouTube video ID. Any field here replaces the automatic value: title, preacher, series, summary, bibleVerse, duration, keyPoints. Videos not listed here still appear automatically.",
+  "Lk3ZYQvp_YQ": {
+    "preacher": "Pastor Dr. Festus Ogunmola"
+  },
+  "tJua5-bE3Kw": {
+    "preacher": "MFM Edinburgh Choir",
+    "summary": "Our 2026 choir concert, Unrelenting Hallelujah — an evening of praise and worship."
+  },
+  "rjstHj2nZ3w": {
+    "summary": "Cultural Day for Christ — a special Sunday service of African praise and a love feast."
+  }
+}

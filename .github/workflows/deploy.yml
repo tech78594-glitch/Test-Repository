@@ -3,6 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # Rebuild every 3 hours so new YouTube uploads appear on the site automatically.
+  schedule:
+    - cron: '17 */3 * * *'
   workflow_dispatch:
 
 permissions:
@@ -28,6 +31,9 @@ jobs:
       - run: npm ci
 
       - run: npm run lint
+
+      - name: Sync latest sermons from YouTube
+        run: npm run sync:sermons
 
       - name: Build
         run: npm run build

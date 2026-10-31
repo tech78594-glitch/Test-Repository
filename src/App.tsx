@@ -11,6 +11,7 @@ import { ServicesSection } from './components/ServicesSection';
 import { DailyPrayerSection } from './components/DailyPrayerSection';
 import { MinistriesSection } from './components/MinistriesSection';
 import { SermonsSection } from './components/SermonsSection';
+import { NewsSection } from './components/NewsSection';
 import { BeliefsSection } from './components/BeliefsSection';
 import { GivingSection } from './components/GivingSection';
 import { TestimoniesSection } from './components/TestimoniesSection';
@@ -152,6 +153,9 @@ export default function App() {
 
         {/* Sermons & Anointed Teachings */}
         <SermonsSection />
+
+        {/* Church News & Updates (Markdown files in /content/news) */}
+        <NewsSection />
 
         {/* Church Life, Outreach & Worship Photo Gallery (Masonry Layout) */}
         <GallerySection onOpenPlanVisit={handleOpenPlanVisit} />
