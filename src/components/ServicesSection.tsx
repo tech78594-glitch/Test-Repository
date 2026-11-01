@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router';
+import { sectionPath } from '@/src/routes';
 import { Calendar, Clock, MapPin, Download, Check, Youtube, ExternalLink, Flame, FileText } from 'lucide-react';
 import { SERVICES } from '@/src/data/churchData';
 
@@ -52,7 +54,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenPlanVisi
           <div>
             <div className="text-xs font-bold text-purple-800 tracking-wider uppercase mb-2 flex items-center gap-1.5">
               <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-              <span>02. Service Times &amp; Schedule</span>
+              <span>Service Times &amp; Schedule</span>
             </div>
             <h2
               className="text-3xl sm:text-4xl font-extrabold text-purple-950 tracking-tight leading-tight"
@@ -209,13 +211,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenPlanVisi
               <span>Open YouTube Channel</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
-            <a
-              href="#bulletin"
+            <Link
+              to={sectionPath('bulletin')}
               className="px-4 py-3 text-xs font-semibold text-amber-300 hover:text-white bg-purple-900/80 hover:bg-purple-800 border border-amber-400/50 rounded-xl transition-all shadow-xs flex items-center justify-center gap-1.5 whitespace-nowrap"
             >
               <FileText className="w-3.5 h-3.5 text-amber-400" />
               <span>Weekly Bulletin & Order</span>
-            </a>
+            </Link>
             <button
               onClick={onOpenPlanVisit}
               className="px-4 py-3 text-xs font-semibold text-purple-200 hover:text-white bg-purple-900/60 hover:bg-purple-800 border border-purple-700 rounded-xl transition-colors whitespace-nowrap"

@@ -22,13 +22,13 @@ export const TestimoniesSection: React.FC = () => {
   };
 
   return (
-    <section className="py-20 bg-purple-50/30 border-b border-purple-100">
+    <section id="testimonies" className="py-20 bg-purple-50/30 border-b border-purple-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <div className="text-xs font-bold text-purple-800 tracking-wider uppercase mb-2 flex items-center gap-1.5">
               <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-              <span>08. Trophies of Grace &amp; Miracles</span>
+              <span>Trophies of Grace &amp; Miracles</span>
             </div>
             <h2
               className="text-3xl sm:text-4xl font-extrabold text-purple-950 tracking-tight leading-tight"

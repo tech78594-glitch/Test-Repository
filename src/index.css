@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
-/* "nav" breakpoint: the full desktop menu only shows when every link fits on one line. */
+/* "nav" breakpoint: from here up the header shows its links inline; below it, a menu button. */
 @theme {
-  --breakpoint-nav: 90rem;
+  --breakpoint-nav: 64rem;
 }
 
 @layer base {
@@ -10,6 +10,10 @@
   html,
   body {
     overflow-x: clip;
+  }
+  /* Jumping to a section (e.g. /services#bulletin) stops below the sticky header. */
+  section[id] {
+    scroll-margin-top: 5.5rem;
   }
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -237,7 +241,7 @@
 }
 @keyframes pulseRing {
   0% { transform: scale(0.95); opacity: 0.55; }
-  100% { transform: scale(1.35); opacity: 0; }
+  100% { transform: scale(1.15); opacity: 0; }
 }
 .float-bob {
   animation: floatBob 4s ease-in-out infinite;

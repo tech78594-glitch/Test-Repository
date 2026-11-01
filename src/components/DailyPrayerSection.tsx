@@ -64,7 +64,7 @@ export const DailyPrayerSection: React.FC = () => {
         <div className="max-w-3xl mb-14">
           <div className="text-xs font-bold text-purple-800 tracking-wider uppercase mb-2 flex items-center gap-1.5">
             <Flame className="w-3.5 h-3.5 text-red-600 fill-red-600" />
-            <span>03. The Altar of Fire &amp; Intercession</span>
+            <span>The Altar of Fire &amp; Intercession</span>
           </div>
           <h2
             className="text-3xl sm:text-4xl font-extrabold text-purple-950 tracking-tight leading-tight"

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router';
+import { sectionPath } from '@/src/routes';
 import {
   Flame,
   Maximize2,
@@ -342,12 +344,12 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenPlanVisit 
                 <span>Plan Your Visit</span>
               </button>
             )}
-            <a
-              href="#services"
+            <Link
+              to={sectionPath('services')}
               className="px-4 py-3 text-xs font-semibold text-purple-200 hover:text-white bg-purple-900/60 hover:bg-purple-800 rounded-xl border border-purple-700 transition-colors whitespace-nowrap"
             >
               View Service Schedule
-            </a>
+            </Link>
           </div>
         </div>
       </div>

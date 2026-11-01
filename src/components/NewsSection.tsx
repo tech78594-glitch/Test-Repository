@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Newspaper, Calendar, ArrowRight, X, ExternalLink, Flame } from 'lucide-react';
+import { Link } from 'react-router';
 import { NEWS_POSTS, NewsPost } from '@/src/data/news';
 
-const MAX_ON_PAGE = 6;
+const MAX_ON_PAGE = 12;
 
 const formatDate = (date: Date) =>
   date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' });
@@ -33,9 +34,14 @@ const PostBody: React.FC<{ body: string }> = ({ body }) => (
   </>
 );
 
-export const NewsSection: React.FC = () => {
+interface NewsSectionProps {
+  /** Show only the newest N posts, with a link to the full News page. */
+  limit?: number;
+}
+
+export const NewsSection: React.FC<NewsSectionProps> = ({ limit }) => {
   const [openPost, setOpenPost] = useState<NewsPost | null>(null);
-  const posts = NEWS_POSTS.slice(0, MAX_ON_PAGE);
+  const posts = NEWS_POSTS.slice(0, limit ?? MAX_ON_PAGE);
 
   useEffect(() => {
     if (!openPost) return;
@@ -99,6 +105,18 @@ export const NewsSection: React.FC = () => {
             </article>
           ))}
         </div>
+
+        {limit && (
+          <div className="mt-10 text-center">
+            <Link
+              to="/news"
+              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold text-white bg-purple-900 hover:bg-purple-800 rounded-xl shadow-md transition-colors"
+            >
+              All news &amp; updates
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        )}
       </div>
 
       {openPost && (

@@ -3,35 +3,36 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router';
+import { motion } from 'motion/react';
 import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { AboutSection } from './components/AboutSection';
-import { ServicesSection } from './components/ServicesSection';
-import { DailyPrayerSection } from './components/DailyPrayerSection';
-import { MinistriesSection } from './components/MinistriesSection';
-import { SermonsSection } from './components/SermonsSection';
-import { NewsSection } from './components/NewsSection';
-import { BeliefsSection } from './components/BeliefsSection';
-import { GivingSection } from './components/GivingSection';
-import { TestimoniesSection } from './components/TestimoniesSection';
-import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { PlanVisitModal } from './components/PlanVisitModal';
 import { PrayerRequestModal } from './components/PrayerRequestModal';
 import { JoinMinistryModal } from './components/JoinMinistryModal';
 import { MinistryAgentsModal } from './components/MinistryAgentsModal';
-import { GallerySection } from './components/GallerySection';
-import { FlagshipProgrammesSection } from './components/FlagshipProgrammesSection';
-import { PublicationsSection } from './components/PublicationsSection';
-import { CommunityPrayerWall } from './components/CommunityPrayerWall';
-import { WeeklyBulletin } from './components/WeeklyBulletin';
 import { LiveStreamBanner } from './components/LiveStreamBanner';
 import { LiveStreamModal } from './components/LiveStreamModal';
-import { Bot, Flame } from 'lucide-react';
-import { motion } from 'motion/react';
 import { ScrollProgress } from './components/motion/ScrollProgress';
+import { ScrollManager } from './components/ScrollManager';
 import { useScrollReveal } from './hooks/useScrollReveal';
+import { ActionsContext, AgentType, SiteActions } from './context/ActionsContext';
+import { PAGES } from './routes';
+import {
+  AboutPage,
+  BooksPage,
+  ContactPage,
+  GalleryPage,
+  GivingPage,
+  HomePage,
+  MinistriesPage,
+  NewsPage,
+  NotFoundPage,
+  PrayerPage,
+  SermonsPage,
+  ServicesPage,
+} from './pages';
 
 export default function App() {
   const [isPlanVisitOpen, setIsPlanVisitOpen] = useState(false);
@@ -41,10 +42,12 @@ export default function App() {
   const [isLiveStreamOpen, setIsLiveStreamOpen] = useState(false);
   const [liveStreamTitle, setLiveStreamTitle] = useState('Sunday Glorious Worship & Deliverance Service');
   const [isServiceLive, setIsServiceLive] = useState(false);
-  const [agentTab, setAgentTab] = useState<'prayer' | 'visitor' | 'deliverance'>('prayer');
+  const [agentTab, setAgentTab] = useState<AgentType>('prayer');
   const [selectedMinistryName, setSelectedMinistryName] = useState<string>('');
 
-  useScrollReveal();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  useScrollReveal(pathname);
 
   const handleOpenPlanVisit = () => {
     setIsPlanVisitOpen(true);
@@ -54,7 +57,7 @@ export default function App() {
     setIsPrayerRequestOpen(true);
   };
 
-  const handleOpenAgents = (tab: 'prayer' | 'visitor' | 'deliverance' = 'prayer') => {
+  const handleOpenAgents = (tab: AgentType = 'prayer') => {
     setAgentTab(tab);
     setIsAgentsOpen(true);
   };
@@ -66,28 +69,32 @@ export default function App() {
     setIsLiveStreamOpen(true);
   };
 
-  const handleOpenGiving = () => {
-    const el = document.getElementById('giving');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleOpenSermons = () => {
-    const el = document.getElementById('sermons');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const handleOpenGiving = () => navigate(PAGES.giving.path);
 
   const handleJoinMinistry = (ministryName: string) => {
     setSelectedMinistryName(ministryName);
     setIsJoinMinistryOpen(true);
   };
 
+  const actions: SiteActions = useMemo(
+    () => ({
+      openPlanVisit: handleOpenPlanVisit,
+      openPrayerRequest: handleOpenPrayerRequest,
+      openAgents: handleOpenAgents,
+      openLiveStream: handleOpenLiveStream,
+      joinMinistry: handleJoinMinistry,
+      isServiceLive,
+      liveStreamTitle,
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isServiceLive, liveStreamTitle]
+  );
+
   return (
+    <ActionsContext.Provider value={actions}>
     <div className="min-h-screen bg-[#FDFCFF] text-slate-800 flex flex-col selection:bg-purple-700 selection:text-white">
       <ScrollProgress />
+      <ScrollManager />
 
       {/* Live Stream Top Banner (conditionally appears when service is in progress with Watch Now link) */}
       <LiveStreamBanner
@@ -106,71 +113,22 @@ export default function App() {
         onOpenAgents={handleOpenAgents}
       />
 
-      {/* Main Content Area */}
+      {/* Pages */}
       <main className="flex-1">
-        {/* Hero with Visual Carrier, Next Service Countdown & Conditional Live Banner */}
-        <Hero
-          onOpenPlanVisit={handleOpenPlanVisit}
-          onOpenPrayerRequest={handleOpenPrayerRequest}
-          onOpenSermon={handleOpenSermons}
-          onOpenAgents={handleOpenAgents}
-          isLive={isServiceLive}
-          liveServiceName={liveStreamTitle}
-          onWatchLive={handleOpenLiveStream}
-          onOpenGiving={handleOpenGiving}
-        />
-
-        {/* About & Pastoral Mandate */}
-        <AboutSection
-          onOpenPlanVisit={handleOpenPlanVisit}
-          onOpenPrayerRequest={handleOpenPrayerRequest}
-        />
-
-        {/* Flagship Programmes & PMCH (Official mountainoffire.org template) */}
-        <FlagshipProgrammesSection
-          onOpenPlanVisit={handleOpenPlanVisit}
-          onOpenPrayerRequest={handleOpenPrayerRequest}
-          onWatchLive={() => handleOpenLiveStream('Power Must Change Hands Live Broadcast')}
-        />
-
-        {/* Weekly & Monthly Service Schedule */}
-        <ServicesSection onOpenPlanVisit={handleOpenPlanVisit} />
-
-        {/* Weekly Church Bulletin & Printable Order of Service */}
-        <WeeklyBulletin />
-
-        {/* Daily Altar of Fire & Targeted Prayer Bullets */}
-        <DailyPrayerSection />
-
-        {/* Public Community Prayer Wall & Altar of Agreement */}
-        <CommunityPrayerWall />
-
-        {/* Anointed Books & DKO Spiritual Warfare Library */}
-        <PublicationsSection onOpenAgents={handleOpenAgents} />
-
-        {/* Ministries & Fellowships */}
-        <MinistriesSection onJoinMinistry={handleJoinMinistry} />
-
-        {/* Sermons & Anointed Teachings */}
-        <SermonsSection />
-
-        {/* Church News & Updates (Markdown files in /content/news) */}
-        <NewsSection />
-
-        {/* Church Life, Outreach & Worship Photo Gallery (Masonry Layout) */}
-        <GallerySection onOpenPlanVisit={handleOpenPlanVisit} />
-
-        {/* Core Biblical Foundations & Beliefs */}
-        <BeliefsSection />
-
-        {/* Online Giving, Tithes & UK Gift Aid */}
-        <GivingSection />
-
-        {/* Testimonies of Deliverance & Healing */}
-        <TestimoniesSection />
-
-        {/* Physical Location, Leith Transit, Contact & Interactive Location Map */}
-        <ContactSection />
+        <Routes>
+          <Route path={PAGES.home.path} element={<HomePage />} />
+          <Route path={PAGES.about.path} element={<AboutPage />} />
+          <Route path={PAGES.services.path} element={<ServicesPage />} />
+          <Route path={PAGES.sermons.path} element={<SermonsPage />} />
+          <Route path={PAGES.prayer.path} element={<PrayerPage />} />
+          <Route path={PAGES.contact.path} element={<ContactPage />} />
+          <Route path={PAGES.news.path} element={<NewsPage />} />
+          <Route path={PAGES.ministries.path} element={<MinistriesPage />} />
+          <Route path={PAGES.gallery.path} element={<GalleryPage />} />
+          <Route path={PAGES.giving.path} element={<GivingPage />} />
+          <Route path={PAGES.books.path} element={<BooksPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </main>
 
       {/* Modern Clean Footer in MFM Royal Purple */}
@@ -241,5 +199,6 @@ export default function App() {
         serviceTitle={liveStreamTitle}
       />
     </div>
+    </ActionsContext.Provider>
   );
 }

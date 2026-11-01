@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, Calendar, Shield, Flame, Sparkles, Bot, BookOpen, Video, MapPin, Mail, Globe } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, NavLink, useLocation } from 'react-router';
+import { AnimatePresence, motion } from 'motion/react';
+import { ChevronDown, Menu, X, Phone, Calendar, Shield, Flame, Sparkles, Bot, BookOpen, Video, MapPin, Mail, Globe } from 'lucide-react';
 import { useLocale } from '@/src/context/LocaleContext';
 import { LanguageToggle } from './LanguageToggle';
+import { MORE_NAV, PRIMARY_NAV } from '@/src/routes';
 
 interface NavbarProps {
   onOpenPlanVisit: () => void;
@@ -19,6 +22,35 @@ export const Navbar: React.FC<NavbarProps> = ({
   const { t } = useLocale();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const moreRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+
+  // Close menus whenever the page changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setMoreOpen(false);
+  }, [location.pathname, location.hash]);
+
+  // Close the "More" dropdown on outside click or Escape
+  useEffect(() => {
+    if (!moreOpen) return;
+    const onDown = (e: MouseEvent) => {
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) setMoreOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setMoreOpen(false);
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [moreOpen]);
+
+  const moreIsActive = MORE_NAV.some((item) => {
+    const [path, hash] = item.to.split('#');
+    return location.pathname === path && (!hash || location.hash === `#${hash}`) && !PRIMARY_NAV.some((p) => p.to === path && !hash);
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       {/* Top Utility Header Bar (mountainoffire.org template signature) */}
-      <div className="bg-purple-950 text-purple-200 border-b border-purple-900 py-1.5 px-4 text-xs hidden lg:block">
+      <div className="bg-purple-950 text-purple-200 border-b border-purple-900 py-1.5 px-4 text-xs hidden xl:block">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-4 text-[11px]">
             <span className="flex items-center gap-1 text-amber-300 font-bold">
@@ -79,12 +111,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             : 'bg-purple-950/90 backdrop-blur-sm border-b border-purple-900/80 py-3.5 text-white'
         }`}
       >
-        <div className="max-w-7xl nav:max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Top Bar Contract: Zone 1 (Brand) - Zone 2 (Nav Links) - Zone 3 (Primary Action) */}
           <div className="flex items-center justify-between gap-2 sm:gap-4">
             {/* Zone 1: Official MFM Shield Emblem & Brand Name */}
-            <a
-              href="#"
+            <Link
+              to="/"
               className="flex items-center gap-2 sm:gap-3 text-white hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 min-w-0 group"
               aria-label="MFM Edinburgh Home"
             >
@@ -101,103 +133,80 @@ export const Navbar: React.FC<NavbarProps> = ({
                   Mountain of Fire &amp; Miracles
                 </span>
               </div>
-            </a>
+            </Link>
 
-            {/* Zone 2: Single-line text navigation links */}
-            <nav className="hidden nav:flex items-center gap-3.5 min-[1680px]:gap-5 text-xs font-semibold text-purple-100">
-              <a
-                href="#about"
-                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
-              >
-                {t('nav.about')}
-              </a>
-              <a
-                href="#programmes"
-                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
-              >
-                {t('nav.programmes')}
-              </a>
-              <a
-                href="#services"
-                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
-              >
-                {t('nav.services')}
-              </a>
-              <a
-                href="#bulletin"
-                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
-              >
-                {t('nav.bulletin')}
-              </a>
-              <a
-                href="#prayers"
-                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
-              >
-                {t('nav.prayers')}
-              </a>
-              <a
-                href="#prayer-wall"
-                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8 flex items-center gap-1 text-amber-200"
-              >
-                <Flame className="w-3 h-3 text-amber-400 fill-amber-400" />
-                <span>{t('nav.prayerWall')}</span>
-              </a>
-              <a
-                href="#publications"
-                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
-              >
-                {t('nav.books')}
-              </a>
-              <a
-                href="#ministries"
-                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
-              >
-                {t('nav.ministries')}
-              </a>
-              <a
-                href="#sermons"
-                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
-              >
-                {t('nav.sermons')}
-              </a>
-              <a
-                href="#news"
-                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
-              >
-                {t('nav.news')}
-              </a>
-              <a
-                href="#gallery"
-                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
-              >
-                {t('nav.gallery')}
-              </a>
-              <a
-                href="#giving"
-                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
-              >
-                {t('nav.giving')}
-              </a>
-              <a
-                href="#contact"
-                className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8"
-              >
-                {t('nav.location')}
-              </a>
+            {/* Zone 2: five main links + "More" menu */}
+            <nav aria-label="Main" className="hidden nav:flex items-center gap-1 text-sm font-semibold text-purple-100">
+              {PRIMARY_NAV.map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `px-2.5 xl:px-3 py-2 rounded-lg whitespace-nowrap transition-colors ${
+                      isActive ? 'text-amber-300 bg-purple-900/70' : 'hover:text-amber-300 hover:bg-purple-900/40'
+                    }`
+                  }
+                >
+                  {t(item.navKey)}
+                </NavLink>
+              ))}
+
+              <div ref={moreRef} className="relative">
+                <button
+                  type="button"
+                  onClick={() => setMoreOpen((o) => !o)}
+                  aria-haspopup="menu"
+                  aria-expanded={moreOpen}
+                  className={`flex items-center gap-1 px-2.5 xl:px-3 py-2 rounded-lg whitespace-nowrap transition-colors cursor-pointer ${
+                    moreOpen || moreIsActive ? 'text-amber-300 bg-purple-900/70' : 'hover:text-amber-300 hover:bg-purple-900/40'
+                  }`}
+                >
+                  {t('nav.more')}
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${moreOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                <AnimatePresence>
+                  {moreOpen && (
+                    <motion.div
+                      role="menu"
+                      initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                      transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute right-0 top-full mt-2 w-60 origin-top-right rounded-2xl bg-purple-950/98 backdrop-blur-md border border-purple-700 shadow-2xl p-2 z-50"
+                    >
+                      {MORE_NAV.map((item) => (
+                        <Link
+                          key={item.to}
+                          to={item.to}
+                          role="menuitem"
+                          className="block px-3.5 py-2.5 rounded-xl text-sm text-purple-100 hover:text-amber-300 hover:bg-purple-900/70 transition-colors"
+                        >
+                          {t(item.navKey)}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </nav>
 
             {/* Zone 3: 1 Primary Action + Language Toggle + Assistant Quick Trigger */}
             <div className="hidden nav:flex items-center gap-2.5 shrink-0">
+              {/* Small laptops: language switcher here; 1280px+ has it in the top bar */}
+              <div className="xl:hidden">
+                <LanguageToggle />
+              </div>
 
               {onOpenAgents && (
                 <button
                   onClick={() => onOpenAgents('prayer')}
-                  className="px-3 py-2 text-xs font-semibold text-purple-100 hover:text-white bg-purple-900/80 hover:bg-purple-800 rounded-xl border border-purple-700/80 transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
+                  className="px-3 py-2 text-xs font-semibold text-purple-100 hover:text-white bg-purple-900/80 hover:bg-purple-800 rounded-xl border border-purple-700/80 transition-all hidden xl:flex items-center gap-1.5 shadow-xs cursor-pointer"
                   title="Ask Prayer & Visitor Assistant"
                   aria-label={t('nav.prayerAssistant')}
                 >
                   <Bot className="w-3.5 h-3.5 text-amber-300" />
-                  <span className="hidden min-[1680px]:inline">{t('nav.prayerAssistant')}</span>
+                  <span className="hidden xl:inline">{t('nav.prayerAssistant')}</span>
                 </button>
               )}
 
@@ -212,7 +221,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Mobile Actions */}
             <div className="flex nav:hidden items-center gap-2 shrink-0">
-              {/* Phones get the language switcher inside the menu; laptops have it in the top bar */}
+              {/* Phones get the language switcher inside the menu */}
               <div className="hidden sm:block lg:hidden">
                 <LanguageToggle />
               </div>
@@ -283,103 +292,36 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <LanguageToggle variant="pills" />
               </div>
 
-              <div className="py-5 flex flex-col gap-3 text-sm font-medium text-purple-100">
-                <a
-                  href="#about"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-amber-300 transition-colors py-1"
-                >
-                  {t('nav.about')}
-                </a>
-                <a
-                  href="#programmes"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-amber-300 transition-colors py-1 text-amber-300 font-bold"
-                >
-                  {t('nav.programmes')}
-                </a>
-                <a
-                  href="#services"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-amber-300 transition-colors py-1"
-                >
-                  {t('nav.services')}
-                </a>
-                <a
-                  href="#bulletin"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-amber-300 transition-colors py-1"
-                >
-                  {t('nav.bulletin')}
-                </a>
-                <a
-                  href="#prayers"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-amber-300 transition-colors py-1"
-                >
-                  {t('nav.prayers')}
-                </a>
-                <a
-                  href="#prayer-wall"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-amber-300 transition-colors py-1 text-amber-200 font-semibold flex items-center gap-1.5"
-                >
-                  <Flame className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                  <span>{t('nav.prayerWall')}</span>
-                </a>
-                <a
-                  href="#publications"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-amber-300 transition-colors py-1"
-                >
-                  {t('nav.books')}
-                </a>
-                <a
-                  href="#ministries"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-amber-300 transition-colors py-1"
-                >
-                  {t('nav.ministries')}
-                </a>
-                <a
-                  href="#sermons"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-amber-300 transition-colors py-1"
-                >
-                  {t('nav.sermons')}
-                </a>
-                <a
-                  href="#news"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-amber-300 transition-colors py-1"
-                >
-                  {t('nav.news')}
-                </a>
-                <a
-                  href="#gallery"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-amber-300 transition-colors py-1"
-                >
-                  {t('nav.gallery')}
-                </a>
-                <a
-                  href="#giving"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenGiving();
-                  }}
-                  className="hover:text-amber-300 transition-colors py-1"
-                >
-                  {t('nav.giving')}
-                </a>
-                <a
-                  href="#contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-amber-300 transition-colors py-1"
-                >
-                  {t('nav.location')}
-                </a>
-              </div>
+              <nav aria-label="Main" className="py-5 flex flex-col gap-1 text-sm font-medium text-purple-100">
+                {PRIMARY_NAV.map((item) => (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    className={({ isActive }) =>
+                      `px-3 py-2.5 rounded-xl transition-colors ${
+                        isActive ? 'text-amber-300 bg-purple-900/70 font-bold' : 'hover:text-amber-300 hover:bg-purple-900/40'
+                      }`
+                    }
+                  >
+                    {t(item.navKey)}
+                  </NavLink>
+                ))}
+
+                <div className="mt-4 mb-1 px-3 text-[10px] font-bold text-amber-300 uppercase tracking-wider">
+                  {t('nav.more')}
+                </div>
+                <div className="grid grid-cols-2 gap-1">
+                  {MORE_NAV.map((item) => (
+                    <Link
+                      key={item.to}
+                      to={item.to}
+                      className="px-3 py-2 rounded-xl text-[13px] text-purple-200 hover:text-amber-300 hover:bg-purple-900/40 transition-colors"
+                    >
+                      {t(item.navKey)}
+                    </Link>
+                  ))}
+                </div>
+              </nav>
             </div>
 
             <div className="pt-6 border-t border-purple-800/80 flex flex-col gap-3">

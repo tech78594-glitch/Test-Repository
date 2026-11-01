@@ -10,12 +10,12 @@ export const BeliefsSection: React.FC = () => {
   };
 
   return (
-    <section className="py-20 bg-white border-b border-purple-100">
+    <section id="beliefs" className="py-20 bg-white border-b border-purple-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-12">
           <div className="text-xs font-bold text-purple-800 tracking-wider uppercase mb-2 flex items-center gap-1.5">
             <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-            <span>07. Biblical Foundations</span>
+            <span>Biblical Foundations</span>
           </div>
           <h2
             className="text-3xl sm:text-4xl font-extrabold text-purple-950 tracking-tight leading-tight"

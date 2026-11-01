@@ -63,6 +63,11 @@ News posts are Markdown files in `content/news/`. To publish one on github.com:
 
 `link` and `linkText` are optional. For a picture, upload it to `public/assets/news/` and add `image: /assets/news/your-picture.jpg`. The 6 newest posts are shown. To remove a post, delete its file.
 
+### Pages and menu
+
+- **Which sections appear on each page:** `src/pages/index.tsx`.
+- **Header links:** the 5 main links and the **More** menu are listed in `src/routes.ts` (`PRIMARY_NAV` and `MORE_NAV`). Move an item between the two lists to change what shows in the header.
+
 ### Everything else
 
 - **Logo:** `public/assets/brand/mfm-logo.png`.

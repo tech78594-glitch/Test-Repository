@@ -26,7 +26,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
         <div className="max-w-3xl mb-16">
           <div className="text-xs font-bold text-purple-900 tracking-wider uppercase mb-2 flex items-center gap-1.5">
             <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-            <span>01. The Global Commission &amp; Edinburgh Mandate</span>
+            <span>The Global Commission &amp; Edinburgh Mandate</span>
           </div>
           <h2
             className="text-3xl sm:text-4xl font-black text-purple-950 tracking-tight leading-tight"

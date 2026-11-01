@@ -22,7 +22,7 @@ export const MinistriesSection: React.FC<MinistriesSectionProps> = ({ onJoinMini
           <div>
             <div className="text-xs font-bold text-purple-800 tracking-wider uppercase mb-2 flex items-center gap-1.5">
               <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-              <span>04. Ministries &amp; Fellowships</span>
+              <span>Ministries &amp; Fellowships</span>
             </div>
             <h2
               className="text-3xl sm:text-4xl font-extrabold text-purple-950 tracking-tight leading-tight"

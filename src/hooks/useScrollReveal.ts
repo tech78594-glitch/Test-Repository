@@ -15,7 +15,8 @@ const TARGETS = [
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-export function useScrollReveal(rootSelector = 'main section, footer') {
+/** `pageKey` (e.g. the current path) re-runs the reveal whenever a new page is shown. */
+export function useScrollReveal(pageKey = '', rootSelector = 'main section, footer') {
   useLayoutEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -78,5 +79,5 @@ export function useScrollReveal(rootSelector = 'main section, footer') {
         el.style.filter = '';
       }
     };
-  }, [rootSelector]);
+  }, [pageKey, rootSelector]);
 }

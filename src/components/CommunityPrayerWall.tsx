@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router';
+import { sectionPath } from '@/src/routes';
 import {
   Flame,
   HeartHandshake,
@@ -412,8 +414,8 @@ export const CommunityPrayerWall: React.FC = () => {
             If your request requires strict pastoral confidentiality or foundational deliverance intervention, 
             submit a direct private request directly to Pastor Dr. Festus Ogunmola.
           </p>
-          <a
-            href="#contact"
+          <Link
+            to={sectionPath('contact')}
             onClick={(e) => {
               e.preventDefault();
               const btn = document.querySelector('button[aria-label="Submit a prayer request"]') as HTMLElement;
@@ -426,7 +428,7 @@ export const CommunityPrayerWall: React.FC = () => {
           >
             <span>Submit Private Pastoral Request</span>
             <span>&rarr;</span>
-          </a>
+          </Link>
         </div>
       </div>
 

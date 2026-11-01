@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { Play, BookOpen, Youtube, ExternalLink, X, Flame } from 'lucide-react';
+import { Play, BookOpen, Youtube, ExternalLink, X, Flame, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router';
 import { SERMONS, Sermon } from '@/src/data/churchData';
 
 interface SermonsSectionProps {
   selectedSermonId?: string;
+  /** Show only the newest N sermons, with a link to the full Sermons page. */
+  limit?: number;
 }
 
-export const SermonsSection: React.FC<SermonsSectionProps> = () => {
+export const SermonsSection: React.FC<SermonsSectionProps> = ({ limit }) => {
   const [activeModalSermon, setActiveModalSermon] = useState<Sermon | null>(null);
+  const sermons = limit ? SERMONS.slice(0, limit) : SERMONS;
 
   return (
     <section id="sermons" className="py-20 bg-white border-b border-purple-100">
@@ -17,7 +21,7 @@ export const SermonsSection: React.FC<SermonsSectionProps> = () => {
           <div>
             <div className="text-xs font-bold text-purple-800 tracking-wider uppercase mb-2 flex items-center gap-1.5">
               <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-              <span>05. Anointed Messages &amp; Teachings</span>
+              <span>Anointed Messages &amp; Teachings</span>
             </div>
             <h2
               className="text-3xl sm:text-4xl font-extrabold text-purple-950 tracking-tight leading-tight"
@@ -44,7 +48,7 @@ export const SermonsSection: React.FC<SermonsSectionProps> = () => {
 
         {/* Sermon Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {SERMONS.map((sermon) => (
+          {sermons.map((sermon) => (
             <div
               key={sermon.id}
               className="group rounded-2xl bg-purple-50/30 border border-purple-200 hover:border-purple-400 transition-all duration-200 overflow-hidden flex flex-col justify-between shadow-2xs hover:shadow-md"
@@ -122,6 +126,18 @@ export const SermonsSection: React.FC<SermonsSectionProps> = () => {
             </div>
           ))}
         </div>
+
+        {limit && SERMONS.length > limit && (
+          <div className="mt-10 text-center">
+            <Link
+              to="/sermons"
+              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold text-white bg-purple-900 hover:bg-purple-800 rounded-xl shadow-md transition-colors"
+            >
+              View all sermons
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        )}
 
         {/* Modal Player */}
         {activeModalSermon && (

@@ -38,7 +38,7 @@ export const ContactSection: React.FC = () => {
         <div className="max-w-3xl mb-14">
           <div className="text-xs font-bold text-purple-800 tracking-wider uppercase mb-2 flex items-center gap-1.5">
             <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-            <span>09. Visit &amp; Get in Touch</span>
+            <span>Visit &amp; Get in Touch</span>
           </div>
           <h2
             className="text-3xl sm:text-4xl font-extrabold text-purple-950 tracking-tight leading-tight"

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router';
+import { sectionPath } from '@/src/routes';
 import { Flame, MapPin, Phone, Mail, ArrowUp, Bot } from 'lucide-react';
 
 interface FooterProps {
@@ -58,49 +60,49 @@ export const Footer: React.FC<FooterProps> = ({
             </h4>
             <ul className="space-y-2.5 text-xs text-purple-300">
               <li>
-                <a href="#about" className="hover:text-amber-300 transition-colors">
+                <Link to={sectionPath('about')} className="hover:text-amber-300 transition-colors">
                   About MFM &amp; Mandate
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#programmes" className="hover:text-amber-300 transition-colors text-amber-300 font-semibold">
+                <Link to={sectionPath('programmes')} className="hover:text-amber-300 transition-colors text-amber-300 font-semibold">
                   PMCH &amp; Flagship Gatherings
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="hover:text-amber-300 transition-colors">
+                <Link to={sectionPath('services')} className="hover:text-amber-300 transition-colors">
                   Weekly Services Schedule
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#prayers" className="hover:text-amber-300 transition-colors">
+                <Link to={sectionPath('prayers')} className="hover:text-amber-300 transition-colors">
                   Daily Warfare Prayer Bullets
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#prayer-wall" className="hover:text-amber-300 transition-colors text-amber-300/90 font-medium flex items-center gap-1">
+                <Link to={sectionPath('prayer-wall')} className="hover:text-amber-300 transition-colors text-amber-300/90 font-medium flex items-center gap-1">
                   <span>Community Prayer Wall</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#publications" className="hover:text-amber-300 transition-colors">
+                <Link to={sectionPath('publications')} className="hover:text-amber-300 transition-colors">
                   DKO Spiritual Books
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#ministries" className="hover:text-amber-300 transition-colors">
+                <Link to={sectionPath('ministries')} className="hover:text-amber-300 transition-colors">
                   Church Ministries
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#sermons" className="hover:text-amber-300 transition-colors">
+                <Link to={sectionPath('sermons')} className="hover:text-amber-300 transition-colors">
                   Sermon Media Center
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#gallery" className="hover:text-amber-300 transition-colors">
+                <Link to={sectionPath('gallery')} className="hover:text-amber-300 transition-colors">
                   Photo Gallery &amp; Outreach
-                </a>
+                </Link>
               </li>
               <li>
                 <button

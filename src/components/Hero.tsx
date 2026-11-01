@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
+import { useNavigate } from 'react-router';
+import { sectionPath } from '@/src/routes';
 import { Calendar, Play, Shield, MapPin, Clock, ArrowRight, Bot, Flame, Video, BookOpen, Heart, Swords, Sparkles } from 'lucide-react';
 import heroImage from '@/src/assets/images/hero_worship_sanctuary_1792594652620.jpg';
 import { useLocale } from '@/src/context/LocaleContext';
@@ -147,12 +149,9 @@ export const Hero: React.FC<HeroProps> = ({
     return () => clearInterval(interval);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const navigate = useNavigate();
+  const scrollToSection = (id: string) => navigate(sectionPath(id));
+
 
   return (
     <div ref={heroRef} className="relative bg-purple-950 text-white pt-10 pb-12 sm:pt-24 sm:pb-16 lg:pt-32 lg:pb-20 overflow-hidden">
